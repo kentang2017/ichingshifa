@@ -1,1 +1,1 @@
-# 周易筮法 Iching Shifa (stalk divination)
+# 周易筮法卜卦 Iching Shifa (stalk divination)
