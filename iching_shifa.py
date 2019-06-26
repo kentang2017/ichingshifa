@@ -8,8 +8,8 @@ def multi_key_dict_get(d, k):
     return None
 
 #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
-sixtyfour_gua_list = pickle.load( open( "C:/Users/hooki/Desktop/iching_shifa/data/sixtyfour_gua_list.pkl", "rb" ) )
-bagua =  pickle.load( open( "C:/Users/hooki/Desktop/iching_shifa/data/bagua.pkl", "rb" ) )
+sixtyfour_gua_list = pickle.load( open( "data/sixtyfour_gua_list.pkl", "rb" ) )
+bagua =  pickle.load( open( "data/bagua.pkl", "rb" ) )
 def bookgua(): #由底至上起爻
     shifa_results = []
     for i in range(6):
@@ -81,7 +81,10 @@ def bookgua_details():
         elif dong_yao == 2:
             explaination2 = g_gua, "主要看【"+top[0]+top[1]+"】，其次看【"+second[0]+second[1]+"】。", top, second
         elif dong_yao == 3:
-            explaination2 = g_gua, "主要看【"+dong_yao_bian_gua+"】卦，其次看【"+getgua+"】卦。", g_gua_result[0], yao_results[0]
+            if guayao[0] == '7' or '8':
+                explaination2 = g_gua, "【"+getgua+"】卦為貞(我方)，【"+dong_yao_bian_gua+"】卦為悔(他方)。主貞【"+getgua+"】卦", yao_results[0], g_gua_result[0]
+            elif guayao[0] == '6' or '9':
+                explaination2 = g_gua, "【"+getgua+"】卦為貞(我方)，【"+getgua+"】卦為悔(他方)。主悔【"+dong_yao_bian_gua+"】卦", g_gua_result[0], yao_results[0]
         elif dong_yao == 4:
             explaination2 = g_gua, "主要看【"+getgua+"】的"+top_2[0]+top_2[1]+"，其次看【"+second_2[0]+second_2[1]+"】。", top_2, second_2
         elif dong_yao == 5:    
