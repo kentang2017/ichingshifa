@@ -29,8 +29,10 @@ def bookgua(): #由底至上起爻
             right_extract = 4
         yibian  = left_extract + right_extract + guayi
         #二變 (分二、掛一、揲四、歸奇)
+        
         stalks_second = stalks_first - yibian
-        second_division = np.random.multinomial(stalks_second, np.ones(n)/2, size=1)[0]
+        second_dividers = sorted(random.sample(range(1, stalks_second), n - 1))
+        second_division  = [a - b for a, b in zip(dividers + [stalks_second], [0] + dividers)
         right_second = second_division[0] - guayi
         left_extract_second = second_division[1] % 4 
         if left_extract_second == 0:
@@ -41,7 +43,8 @@ def bookgua(): #由底至上起爻
         erbian = left_extract_second + right_extract_second + guayi
         #三變 (分二、掛一、揲四、歸奇)
         stalks_third = stalks_second - erbian
-        third_division = np.random.multinomial(stalks_third, np.ones(n)/2, size=1)[0]
+        third_dividers = sorted(random.sample(range(1, stalks_third), n - 1))
+        third_division  = [a - b for a, b in zip(third_dividers + [stalks_third], [0] + third_dividers)]
         right_third = third_division[0] - guayi
         left_extract_third = third_division[1] % 4
         if left_extract_third  == 0:
