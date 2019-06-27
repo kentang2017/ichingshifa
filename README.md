@@ -10,10 +10,10 @@
 
 ```python
 n=2
-stalks = 50-1 #50根蓍草，一根是太一，太一拿走，分二象
-division = np.random.multinomial(stalks_first, np.ones(n)/2, size=1)[0] #一變的過程 (分二、掛一、揲四、歸奇)
-guayi = 1
-right = division[0] - guayi
+stalks_first = 50-1  #掛一
+dividers = sorted(random.sample(range(1, stalks_first), n - 1))
+division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]guayi = 1 #一變 (分二、掛一、揲四、歸奇)
+right = division[0] - guayi 
 left_extract = division[1] % 4 
 if left_extract == 0:
     left_extract = 4
@@ -49,7 +49,6 @@ _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 ## **3. 安裝套件**:
 ```
-pip install --upgrade numpy
 pip install --upgrade ichingshifa
 ```
 
