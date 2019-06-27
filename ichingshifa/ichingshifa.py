@@ -1,4 +1,4 @@
-import numpy as np
+import random
 import pickle
 
 def multi_key_dict_get(d, k):
@@ -17,7 +17,8 @@ def bookgua(): #由底至上起爻
         #掛一
         stalks_first = 50-1
         #一變 (分二、掛一、揲四、歸奇)
-        first_division = np.random.multinomial(stalks_first, np.ones(n)/2, size=1)[0]
+        dividers = sorted(random.sample(range(1, stalks_first), n - 1))
+        first_division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]
         guayi = 1
         right = first_division[0] - guayi
         left_extract = first_division[1] % 4 
