@@ -12,7 +12,7 @@ pip install ichingshifa #更新套件 pip install --upgrade ichingshifa
 
 
 
-**快速執行**:
+**快速起卦**:
 ```
 from ichingshifa import ichingshifa
 ichingshifa.bookgua_details()
