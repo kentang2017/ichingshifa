@@ -9,19 +9,20 @@
 ## **1. 大衍之數、太一、分二、掛一、揲四、歸奇**︰
 
 ```python
+#一變的過程
 n=2
-stalks_first = 50-1  #掛一
-dividers = sorted(random.sample(range(1, stalks_first), n - 1))
+stalks_first = 50-1  #把太一拿走
+dividers = sorted(random.sample(range(1, stalks_first), n - 1)) #分二
 division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]
-guayi = 1 #一變 (分二、掛一、揲四、歸奇)
+guayi = 1 #掛一
 right = division[0] - guayi 
-left_extract = division[1] % 4 
+left_extract = division[1] % 4  #揲四
 if left_extract == 0:
     left_extract = 4
 right_extract = right % 4
 if right_extract == 0:
     right_extract = 4
-bian  = left_extract + right_extract + guayi #如果做for loop 這裡的掛一可以拿走，不用加上。
+bian  = left_extract + right_extract + guayi #歸奇，如果做for loop 這裡的掛一可以拿走，不用加上。
 ```
 上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)
 
