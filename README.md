@@ -65,5 +65,3 @@ ichingshifa.bookgua_details()
 
 
 
-
-
