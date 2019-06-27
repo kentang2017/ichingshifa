@@ -6,20 +6,21 @@
 
 整個起卦過程是要求得十八次的隨機數目，當中包括"六次"(即六根爻)的"三變"。
 
-**1. 三變**︰
+## **1. 大衍之數、太一、分二、掛一、揲四、歸奇**︰
+
 ```python
 n=2
-stalks_first = 50-1 #拿走太一，分為二象
-first_division = np.random.multinomial(stalks_first, np.ones(n)/2, size=1)[0] #一變過程 (分二、掛一、揲四、歸奇)
+stalks = 50-1 #50根蓍草，一根是太一，太一拿走，分二象
+division = np.random.multinomial(stalks_first, np.ones(n)/2, size=1)[0] #一變的過程 (分二、掛一、揲四、歸奇)
 guayi = 1
-right = first_division[0] - guayi
-left_extract = first_division[1] % 4 
+right = division[0] - guayi
+left_extract = division[1] % 4 
 if left_extract == 0:
     left_extract = 4
 right_extract = right % 4
 if right_extract == 0:
     right_extract = 4
-bian  = left_extract + right_extract + guayi #如果做for loop 掛一可以拿走，不用加上。
+bian  = left_extract + right_extract + guayi #如果做for loop 這裡的掛一可以拿走，不用加上。
 ```
 上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)
 
@@ -27,7 +28,7 @@ bian  = left_extract + right_extract + guayi #如果做for loop 掛一可以拿�
 
 上述求爻數值重複六次，第一爻為初爻，從底而上，形成本卦，然後依據卦的變爻多寡求出占卜結果。
 
-**2. 處理變爻的方法︰**
+## **2. 處理變爻的方法︰**
 
 1. 凡卦六爻皆不變則占本卦彖辭而以內卦為貞外卦為悔彖辭為卦下之辭
 
@@ -46,21 +47,19 @@ bian  = left_extract + right_extract + guayi #如果做for loop 掛一可以拿�
 _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 
-
-**3. 安裝套件**:
+## **3. 安裝套件**:
 ```
-pip install numpy # pip install -r requirement.txt
-pip install ichingshifa #更新套件 pip install --upgrade ichingshifa
+pip install --upgrade numpy
+pip install --upgrade ichingshifa
 ```
 
-
-**4. 快速起卦**:
+## **4. 快速起卦**:
 ```
 from ichingshifa import ichingshifa
-ichingshifa.bookgua_details()
+ichingshifa.bookgua_details() 
 ```
 
-
+快速起卦包括顯示六爻組合[0]、本卦[1]、卦辭、初爻、爻二、爻三、爻四、爻五、上爻、彖辭[2]、動(變)爻數目[3]、之卦[4]。
 
 
 
