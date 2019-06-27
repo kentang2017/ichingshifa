@@ -12,7 +12,8 @@
 n=2
 stalks_first = 50-1  #掛一
 dividers = sorted(random.sample(range(1, stalks_first), n - 1))
-division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]guayi = 1 #一變 (分二、掛一、揲四、歸奇)
+division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]
+guayi = 1 #一變 (分二、掛一、揲四、歸奇)
 right = division[0] - guayi 
 left_extract = division[1] % 4 
 if left_extract == 0:
