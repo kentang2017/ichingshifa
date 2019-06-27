@@ -32,7 +32,7 @@ def bookgua(): #由底至上起爻
         
         stalks_second = stalks_first - yibian
         second_dividers = sorted(random.sample(range(1, stalks_second), n - 1))
-        second_division  = [a - b for a, b in zip(dividers + [stalks_second], [0] + dividers)
+        second_division  = [a - b for a, b in zip(second_dividers + [stalks_second], [0] + second_dividers)
         right_second = second_division[0] - guayi
         left_extract_second = second_division[1] % 4 
         if left_extract_second == 0:
