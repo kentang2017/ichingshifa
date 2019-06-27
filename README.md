@@ -6,7 +6,7 @@
 
 整個起卦過程是要求得十八次的隨機數目，當中包括"六次"(即六根爻)的"三變"。
 
-**三變**︰
+**1. 三變**︰
 ```python
 n=2
 stalks_first = 50-1 #拿走太一，分為二象
@@ -27,7 +27,7 @@ bian  = left_extract + right_extract + guayi #如果做for loop 掛一可以拿�
 
 上述求爻數值重複六次，第一爻為初爻，從底而上，形成本卦，然後依據卦的變爻多寡求出占卜結果。
 
-**處理變爻的方法︰**
+**2. 處理變爻的方法︰**
 
 1. 凡卦六爻皆不變則占本卦彖辭而以內卦為貞外卦為悔彖辭為卦下之辭
 
@@ -47,14 +47,14 @@ _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 
 
-**安裝套件**:
+**3. 安裝套件**:
 ```
 pip install numpy # pip install -r requirement.txt
 pip install ichingshifa #更新套件 pip install --upgrade ichingshifa
 ```
 
 
-**快速起卦**:
+**4. 快速起卦**:
 ```
 from ichingshifa import ichingshifa
 ichingshifa.bookgua_details()
