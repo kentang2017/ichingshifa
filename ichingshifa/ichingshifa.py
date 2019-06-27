@@ -1,5 +1,4 @@
-import random
-import pickle
+import pickle, random
 
 def multi_key_dict_get(d, k):
     for keys, v in d.items():
@@ -7,16 +6,13 @@ def multi_key_dict_get(d, k):
             return v
     return None
 
-#64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
-sixtyfourgua = pickle.load( open( "data/sixtyfourgua.pkl", "rb" ) )
+sixtyfourgua = pickle.load( open( "data/sixtyfourgua.pkl", "rb" ) )#64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
 sixtyfourgua_description =  pickle.load( open( "data/sixtyfourgua_description.pkl", "rb" ) )
 def bookgua(): #由底至上起爻
     shifa_results = []
     for i in range(6):
-        n=2
-        #掛一
-        stalks_first = 50-1
-        #一變 (分二、掛一、揲四、歸奇)
+        n=2 
+        stalks_first = 50-1 #一變 (分二、掛一、揲四、歸奇)
         dividers = sorted(random.sample(range(1, stalks_first), n - 1))
         first_division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]
         guayi = 1
@@ -27,12 +23,10 @@ def bookgua(): #由底至上起爻
         right_extract = right % 4
         if right_extract == 0:
             right_extract = 4
-        yibian  = left_extract + right_extract + guayi
-        #二變 (分二、掛一、揲四、歸奇)
-        
+        yibian  = left_extract + right_extract + guayi #二變 (分二、掛一、揲四、歸奇)
         stalks_second = stalks_first - yibian
         second_dividers = sorted(random.sample(range(1, stalks_second), n - 1))
-        second_division  = [a - b for a, b in zip(second_dividers + [stalks_second], [0] + second_dividers)
+        second_division  = [a - b for a, b in zip(second_dividers + [stalks_second], [0] + second_dividers)]
         right_second = second_division[0] - guayi
         left_extract_second = second_division[1] % 4 
         if left_extract_second == 0:
@@ -40,8 +34,7 @@ def bookgua(): #由底至上起爻
         right_extract_second = right_second % 4 
         if right_extract_second == 0:
             right_extract_second = 4
-        erbian = left_extract_second + right_extract_second + guayi
-        #三變 (分二、掛一、揲四、歸奇)
+        erbian = left_extract_second + right_extract_second + guayi #三變 (分二、掛一、揲四、歸奇)
         stalks_third = stalks_second - erbian
         third_dividers = sorted(random.sample(range(1, stalks_third), n - 1))
         third_division  = [a - b for a, b in zip(third_dividers + [stalks_third], [0] + third_dividers)]
