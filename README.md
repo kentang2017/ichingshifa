@@ -2,10 +2,24 @@
 
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/a/af/French_Polished_Yarrow_stalks_from_LPKaster.jpg "Stalk divination")
 
-筮是傳統的周易起卦方式。古人以50根蓍草作為占卜工具，名為策，故此法亦稱"籌策"占卜。《周易系辭上傳》辭曰："大衍之數五十，其用四十有九。分而為二以像兩，掛一以像三， 揲之以四以像四時，歸奇於扐以像閏，五歲再閏，故再扐而後掛。 天一地二，天三地四，天五地六，天七地八，天九地十。天數五，地數五，五位相得而各有合。天數二十有五，地數三十，凡天地之數五十有五。此所以成變化而行鬼神也。"
+"筮"是傳統的周易起卦方式。古人以50根蓍草作為占卜工具，名為策，故此法亦稱"籌策"占卜。《周易系辭上傳》辭曰："大衍之數五十，其用四十有九。分而為二以像兩，掛一以像三， 揲之以四以像四時，歸奇於扐以像閏，五歲再閏，故再扐而後掛。 天一地二，天三地四，天五地六，天七地八，天九地十。天數五，地數五，五位相得而各有合。天數二十有五，地數三十，凡天地之數五十有五。此所以成變化而行鬼神也。"
+
+
+**安裝套件**:
+```
+pip install ichingshifa
+```
+
+
+
+**快速執行**:
+```
+from ichingshifa import ichingshifa
+ichingshifa.bookgua_details()
+```
+
 
 **三變**︰
-
 ```python
 n=2
 stalks_first = 50-1 #拿走太一，分為二象
@@ -20,6 +34,7 @@ if right_extract == 0:
     right_extract = 4
 bian  = left_extract + right_extract + guayi #如果做for loop 掛一可以拿走，不用加上。
 ```
+
 上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)
 
 而每一根爻的數值可以是**6(老陰)、7(少陽)、8(少陰)或者 9(老陽)**。
