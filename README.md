@@ -47,9 +47,9 @@ _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 
 
-
 **安裝套件**:
 ```
+pip install numpy
 pip install ichingshifa #更新套件 pip install --upgrade ichingshifa
 ```
 
