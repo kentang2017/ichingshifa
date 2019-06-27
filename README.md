@@ -7,7 +7,7 @@
 
 **安裝套件**:
 ```
-pip install ichingshifa
+pip install ichingshifa #更新套件 pip install --upgrade ichingshifa
 ```
 
 
