@@ -21,8 +21,8 @@ if left_extract == 0:
     left_extract = 4
 right_extract = right % 4
 if right_extract == 0:
-    right_extract = 4
-bian  = left_extract + right_extract + guayi #歸奇，如果做for loop 這裡的掛一可以拿走，不用加上。
+    right_extract = 4 #歸奇
+bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法，如果做for loop 這裡的掛一可以拿走，不用加上。
 ```
 上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)
 
