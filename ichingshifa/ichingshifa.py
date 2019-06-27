@@ -8,8 +8,8 @@ def multi_key_dict_get(d, k):
     return None
 
 #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
-sixtyfour_gua_list = pickle.load( open( "data/sixtyfour_gua_list.pkl", "rb" ) )
-bagua =  pickle.load( open( "data/bagua.pkl", "rb" ) )
+sixtyfourgua = pickle.load( open( "data/sixtyfourgua.pkl", "rb" ) )
+sixtyfourgua_description =  pickle.load( open( "data/sixtyfourgua_description.pkl", "rb" ) )
 def bookgua(): #由底至上起爻
     shifa_results = []
     for i in range(6):
@@ -55,14 +55,14 @@ def bookgua(): #由底至上起爻
 
 def bookgua_details():
     guayao = bookgua()
-    getgua = multi_key_dict_get(sixtyfour_gua_list, guayao)
-    yao_results = bagua.get(getgua)
+    getgua = multi_key_dict_get(sixtyfourgua, guayao)
+    yao_results = sixtyfourgua_description.get(getgua)
     bian_yao = guayao.replace("6","1").replace("9","1").replace("7","0").replace("8","0")
     dong_yao = bian_yao.count("1")
     explain = "動爻有【"+str(dong_yao )+"】根。"
     dong_yao_change = guayao.replace("6","7").replace("9","8")
-    dong_yao_bian_gua = multi_key_dict_get(sixtyfour_gua_list, dong_yao_change)
-    g_gua_result = bagua.get(dong_yao_bian_gua)
+    dong_yao_bian_gua = multi_key_dict_get(sixtyfourgua, dong_yao_change)
+    g_gua_result = sixtyfourgua_description.get(dong_yao_bian_gua)
     g_gua = "【"+getgua+"之"+dong_yao_bian_gua+"】"
     top_bian_yao = bian_yao.rfind("1")+int(1)
     second_bian_yao = bian_yao.rfind("1",0, bian_yao.rfind("1"))+int(1)
@@ -86,11 +86,11 @@ def bookgua_details():
             elif bian_yao.find("1") > 0:
                 explaination2 = g_gua, "【"+getgua+"】卦為貞(我方)，【"+dong_yao_bian_gua+"】卦為悔(他方)。主貞【"+getgua+"】卦", yao_results[0], g_gua_result[0]
         elif dong_yao == 4:
-            explaination2 = g_gua, "主要看【"+getgua+"】的"+top_2[0]+top_2[1]+"，其次看【"+second_2[0]+second_2[1]+"】。", top_2, second_2
+            explaination2 = g_gua, "主要看【"+getgua+"】的"+second_2[0]+second_2[1]+"，其次看【"+getgua+"】的"+top_2[0]+top_2[1]+"。", second_2, top_2
         elif dong_yao == 5:    
-            explaination2 = g_gua, "主要看【"+top_2[0]+top_2[1]+"】。",  top_2
+            explaination2 = g_gua, "主要看【"+getgua+"】的"+top_2[0]+top_2[1]+"。",  top_2
         elif dong_yao == 6:
-            explaination2 = g_gua, "主要看【"+dong_yao_bian_gua+"】卦。", g_gua_result[0]
+            explaination2 = g_gua, "主要看【"+dong_yao_bian_gua+"】卦的彖辭。", g_gua_result[6]
     except (TypeError, UnboundLocalError):
         pass
     return  guayao, getgua, yao_results, explain, explaination2
