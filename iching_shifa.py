@@ -94,3 +94,5 @@ def bookgua_details():
     except (TypeError, UnboundLocalError):
         pass
     return  guayao, getgua, yao_results, explain, explaination2
+
+bookgua_details()
