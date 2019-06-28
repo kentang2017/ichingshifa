@@ -12,8 +12,8 @@
 #一變的過程
 n=2
 stalks_first = 50-1  #把太一拿走
-dividers = sorted(random.sample(range(1, stalks_first), n - 1)) #分二
-division  = [a - b for a, b in zip(dividers + [stalks_first], [0] + dividers)]
+dividers = sorted(random.sample(range(24, stalks_first), n - 1)) #分二
+division  = [a - b for a, b in zip(dividers + [stalks_first+10], [10] + dividers)]
 guayi = 1 #掛一
 right = division[0] - guayi 
 left_extract = division[1] % 4  #揲四
@@ -24,7 +24,7 @@ if right_extract == 0:
     right_extract = 4 #歸奇
 bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法，如果做for loop 這裡的掛一可以拿走，不用加上。
 ```
-上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)
+上述為一變，一變重複三次，49策 - 一變 - 二變 - 三變 = 爻。(建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)分二的時候，原來設定隨機數範圍為1至49，但本人使用實物求筮時，分二左右手各得的策數目應該不會相差太遠，所以稍微調節了隨機數的範圍。以四十九除以二，即二十四作為下限。
 
 而每一根爻的數值可以是**6(老陰)、7(少陽)、8(少陰)或者 9(老陽)**。
 
@@ -45,6 +45,24 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 6. 五爻變則以之卦不變爻占
 
 7. 六爻變則乾坤占二用餘卦占之卦彖辭
+
+![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/results.png?raw=true)
+
+50000次起卦不同動爻數量出現概率︰
+
+二動爻:30.52% 
+
+一動爻:17.10% 
+
+三動爻:13.61% 
+
+四動爻:3.42% 
+
+五動爻:0.43% 
+
+六動爻:0.03%
+
+
 
 _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
