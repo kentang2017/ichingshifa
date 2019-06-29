@@ -47,6 +47,7 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 7. 六爻變則乾坤占二用，餘卦占之卦彖辭
 
 50000次起卦不同動爻數量出現概率︰
+
 ![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/results.png?raw=true)
 
 
