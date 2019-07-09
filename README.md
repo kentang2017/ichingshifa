@@ -64,6 +64,7 @@ pip install --upgrade ichingshifa
 ```
 from ichingshifa import ichingshifa
 ichingshifa.bookgua_details() #顯示隨機起卦之結果
+ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起卦
 ichingshifa.current_bookgua() #按現在的年月日時起卦，類似高島吞象的斷卦方法。
 ```
 
