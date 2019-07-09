@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-#
 import pickle, random
-
-(sixtyfourgua, sixtyfourgua_description) = (pickle.load( open( "data/sixtyfourgua.pkl", "rb" )), pickle.load( open( "data/sixtyfourgua_description.pkl", "rb")))#64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
-
+import datetime
+sixtyfourgua = pickle.load( open( "data/sixtyfourgua.pkl", "rb" ))
+sixtyfourgua_description = pickle.load( open( "data/sixtyfourgua_description.pkl", "rb"))
+eightgua = {1:"777", 2:"877", 3:"787", 4:"887", 5:"877", 6:"878", 7:"788", 8:"888"} #先天八卦
+#64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
 def multi_key_dict_get(d, k):
     for keys, v in d.items():
         if k in keys:
@@ -89,4 +92,36 @@ def bookgua_details():
             explaination2 = b_gua_n_g_gua, "主要看【"+g_gua+"】卦的彖辭。", g_gua_result[7][2:]
     except (TypeError, UnboundLocalError):
         pass
-    return  guayao, getgua, yao_results, explaination, explaination2
+    return [guayao, getgua,  yao_results, g_gua, explaination, explaination2]
+
+def multi_key_dict_get(d, k):
+    for keys, v in d.items():
+        if k in keys:
+            return v
+    return None
+
+def datetime_bookgua(year, month, day, hour):
+    upper_gua_remain = (year+month+day) % 8
+    if upper_gua_remain is 0:
+        upper_gua_remain = int(8)
+    upper_gua = eightgua.get(upper_gua_remain)
+    lower_gua_remain = (year+month+day+hour) % 8
+    if lower_gua_remain is 0:
+        lower_gua_remain = int(8)
+    lower_gua = eightgua.get(lower_gua_remain)
+    combine_gua = list(upper_gua+lower_gua)
+    bian_yao = (year+month+day+hour) % 6
+    if bian_yao is not 0:
+        combine_gua[bian_yao - 1] = combine_gua[bian_yao - 1].replace("7","9").replace("8","6")
+    if bian_yao is 0 or 6:
+        bian_yao = int(5)
+        combine_gua[5] = combine_gua[5].replace("7","6").replace("8","9")
+    combine_gua = "".join(combine_gua)
+    gua_chinese = multi_key_dict_get(sixtyfourgua, combine_gua)
+    description = multi_key_dict_get(sixtyfourgua_description,  gua_chinese)
+    g_gua = multi_key_dict_get(sixtyfourgua, (combine_gua.replace("6", "7").replace("9", "8")))
+    return gua_chinese+"之"+g_gua, "變爻為"+description[bian_yao][:2], description[bian_yao][3:]
+    
+def current_bookgua():
+    now = datetime.datetime.now()
+    return datetime_bookgua(int(now.year), int(now.month), int(now.day), int(now.hour+8))
