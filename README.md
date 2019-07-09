@@ -45,14 +45,13 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 6. 五爻變則以之卦不變爻占
 
 7. 六爻變則乾坤占二用，餘卦占之卦彖辭
+_參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 50000次起卦不同動爻數量出現概率︰
 
 ![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/results.png?raw=true)
 
 
-
-_參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
 
 ## **3. 安裝套件**:
