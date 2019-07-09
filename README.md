@@ -63,7 +63,8 @@ pip install --upgrade ichingshifa
 ## **4. 快速起卦**:
 ```
 from ichingshifa import ichingshifa
-ichingshifa.bookgua_details() 
+ichingshifa.bookgua_details() #顯示隨機起卦之結果
+ichingshifa.current_bookgua() #按現在的年月日時起卦，類似高島吞象的斷卦方法。
 ```
 
 快速起卦包括顯示六爻組合[0]、本卦[1]、卦辭、初爻、爻二、爻三、爻四、爻五、上爻、彖辭[2]、動(變)爻數目[3]、之卦[4]。
