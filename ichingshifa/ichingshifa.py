@@ -88,9 +88,9 @@ def bookgua_details():
             explaination2 = b_gua_n_g_gua, "主要看【"+top[:2]+"】，其次看【"+second[:2]+"】。", top, second
         elif dong_yao == 3:
             if bian_yao.find("1") == 0:
-                explaination2 = b_gua_n_g_gua, "【"+getgua+"】卦為貞(我方)，【"+g_gua+"】卦為悔(他方)。主悔【"+g_gua+"】卦，請參考兩卦彖辭", g_gua_result[7][2:],  yao_results[7][2:]
+                explaination2 = b_gua_n_g_gua, "【"+getgua+"】卦為貞(我方)，【"+g_gua+"】卦為悔(他方)。前十卦，主貞【"+getgua+"】卦，請參考兩卦彖辭", yao_results[7][2:], g_gua_result[7][2:]
             elif bian_yao.find("1") > 0:
-                explaination2 = b_gua_n_g_gua, "【"+getgua+"】卦為貞(我方)，【"+g_gua+"】卦為悔(他方)。主貞【"+getgua+"】卦，請參考兩卦彖辭", yao_results[7][2:], g_gua_result[7][2:]
+                explaination2 = b_gua_n_g_gua, "【"+getgua+"】卦為貞(我方)，【"+g_gua+"】卦為悔(他方)。後十卦，主悔【"+g_gua+"】卦，請參考兩卦彖辭", g_gua_result[7][2:],  yao_results[7][2:]
         elif dong_yao == 4:
             explaination2 = b_gua_n_g_gua, "主要看【"+g_gua+"】的"+g_gua_result.get(second_jing_yao)[:2]+"，其次看"+g_gua_result.get(top_jing_yao)[:2]+"。", g_gua_result.get(second_jing_yao), g_gua_result.get(top_jing_yao)
         elif dong_yao == 5:    
