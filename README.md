@@ -73,10 +73,10 @@ pip install --upgrade ichingshifa
 
 ## **4. 快速起卦**:
 ```
-from ichingshifa import ichingshifa
+from ichingshifa import ichingshifa #導入周易筮法套件庫
+ichingshifa.mget_bookgua_details() #手動起卦，從底而上，適合以蓍草起卦者使用，譬如 "初爻7, 二爻8, 三爻9, 四爻7, 五爻8, 上爻9"，即 ichingshifa.mget_bookgua_details('789789')
 ichingshifa.bookgua_details() #顯示隨機起卦結果
 ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起卦
 ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一動爻
 
 ```
-
