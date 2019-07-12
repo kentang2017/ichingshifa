@@ -113,10 +113,12 @@ def datetime_bookgua(year, month, day, hour):
     combine_gua1 =lower_gua+upper_gua
     combine_gua = list(combine_gua1)
     bian_yao = (year+month+day+hour) % 6
+    if bian_yao is 0:
+        bian_yao = int(6)
     if bian_yao is not 0:
-        combine_gua[bian_yao] = combine_gua[bian_yao].replace("7","6").replace("8","9")
+        combine_gua[bian_yao -1] = combine_gua[bian_yao-1].replace("7","6").replace("8","9")
     bian_gua = "".join(combine_gua)
-    ben_gua = multi_key_dict_get(sixtyfourgua, combine_gua1)
+    ben_gua = multi_key_dict_get(sixtyfourgua, bian_gua)
     description = multi_key_dict_get(sixtyfourgua_description,  ben_gua)
     g_gua = multi_key_dict_get(sixtyfourgua, (bian_gua.replace("6", "7").replace("9", "8")))
     return ben_gua+"之"+g_gua, eightgua_element.get(upper_gua_remain)+eightgua_element.get(lower_gua_remain)+ben_gua , "變爻為"+description[bian_yao][:2], description[bian_yao][3:]
