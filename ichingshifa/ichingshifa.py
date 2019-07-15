@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-#
 import pickle, random
 import datetime
-sixtyfourgua = pickle.load( open( "data/sixtyfourgua.pkl", "rb" ))
-sixtyfourgua_description = pickle.load( open( "data/sixtyfourgua_description.pkl", "rb"))
+import os
+
+base = os.path.abspath(os.path.dirname(__file__))
+path1 = os.path.join(base, 'sixtyfourgua.pkl')
+path2 = os.path.join(base, 'sixtyfourgua_description.pkl')
+sixtyfourgua = pickle.load(open(path1, "rb"))
+sixtyfourgua_description = pickle.load(open(path2, "rb"))
 eightgua = {1:"777", 2:"778", 3:"787", 4:"788", 5:"877", 6:"878", 7:"887", 8:"888"} #先天八卦
 eightgua_element = {1: "天", 2:"澤", 3:"火", 4:"雷", 5:"風", 6:"水", 7:"山", 8:"地"}
 #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
