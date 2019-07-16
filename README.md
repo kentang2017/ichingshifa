@@ -1,4 +1,4 @@
-# 周易筮法卜卦 Iching Shifa (stalk divination)
+# 周易筮法卜卦 Python IchingShifa (stalk divination)
 
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/a/af/French_Polished_Yarrow_stalks_from_LPKaster.jpg "Stalk divination")
 
