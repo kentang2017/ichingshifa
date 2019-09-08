@@ -7,7 +7,7 @@
 **"Shi"(筮)** or so-called Stalk divination, is one of the IChing divinations in Chinese traditional culture, in which the ancient Chinese people used 50 sticks of yarrow stalks to make divination or prediction. According to Zhouyi 周易, the number of "Da Yan" (大衍) is 50 while 1 is taken away and 49 sticks of yarrow stalks were used in divination. 49 stalks were seperated into 2 bunches respectively held by both left hand and right hand, and then one stick would be extracted from the right hand, the bunch of stalks held by right hand was divided by four, until the remainder come, that is called the change (or 'bian'), repeating three times. The whole proccess of this divination includes getting 18 random numbers. The value of Line may come after  "Three Changes", that is  (49 stalks - first change - second change - third change) divided by 4, it will be either **6(old yin 老陰)**, **7(young yang 少陽)**, **8(young yin 少陰)**, or **9(old yang 老陽)**.  The BenGua (本卦) is formed when the value of Line is formed from the bottom to the top. If the line with value of either 6 or 9, meaning that line must have a change, like 6(old yin) change to 7(young yang), and 9 (old yang) change to 8 (old yin). Each of the lines has its own meaning or explantion. BianGua (變卦) or ZhiGua (之卦) is also formed after BenGua with value 6 or 9 has been changed. 
 
 
-## **1. 大衍之數、太一、分二、掛一、揲四、歸奇**︰
+## **1. 大衍之數、太一、分二、掛一、揲四、歸奇 The number of DaYan**︰
 
 ```python
 #一變的過程
@@ -27,7 +27,8 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 ```
 上述為一變，一變重複三次，即49策 - 一變 - 二變 - 三變，減去的總數再除以四，得出的就是爻值。每一根爻的數值可以是**6(老陰)、7(少陽)、8(少陰)或者 9(老陽)** (建議三變不要以for loop做；for loop做出來的六爻動概率稍高。)在分二的時候，原來設定隨機數範圍為1至49，但本人使用實物求筮時，分二左右手各得的策數目應該不會相差太遠，所以稍微調節了隨機數的範圍。以四十九除以二，即二十四作為下限。六爻數值出現，從下而上，形成本卦。如本卦裡包含老陰老陽，即6或9的數值，是為變卦。變卦裡的6或9數值需要變換，老陰變少陽，老陽變少陰，亦即9變8，6變7，當轉換後，六爻數值產生變化，變成另一個卦，稱為之卦。起卦者主要依據本卦、變爻和之卦判斷占卜結果。
 
-## **2. 處理變(動)爻的方法︰**
+
+## **2. 處理變(動)爻的方法︰The way in handling the change of line(s)(yao(s))**
 
 1. 凡卦六爻皆不變，則占本卦彖辭，而以內卦為貞，外卦為悔，彖辭為卦下之辭。
 
@@ -45,22 +46,31 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 
 _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
+1. The Six lines without any changed lines, the explantion of Gua is based on the general explanation of BenGua. 
+2. The Six lines with one line changed, the explanation is depended on there. 
+3. The Six lines with two lines changed, the upper one is the main explanation. 
+4. The Six lines with three lines changed, the explanation is lied on the BenGua's general explanation if the change line starts from the first line, while the explantion is base on BianGua's general explanation if the change line starts from the second line. 
+5. The Six lines with four lines changed,  the explanation is upon the lower line of BianGua. 
+6. The Six lines with five lines changed,  the explanation is upon the one line without change on BianGua. 
+7. The Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, the explanation  
+_The above method is advocated on ZhuXi_
+
 
 ![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/results.png?raw=true)
 
 
 
-## **3. 安裝套件**:
+## **3. 安裝套件 Installation**:
 ```
 pip install --upgrade ichingshifa
 ```
 
-## **4. 快速起卦**:
+## **4. 快速起卦 Quick Start**:
 ```
-from ichingshifa import ichingshifa #導入周易筮法套件庫
-ichingshifa.mget_bookgua_details() #手動起卦，從底而上，適合以蓍草起卦者使用，譬如 "初爻7, 二爻8, 三爻9, 四爻7, 五爻8, 上爻9"，即 ichingshifa.mget_bookgua_details('789789')
-ichingshifa.bookgua_details() #顯示隨機起卦結果
-ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起卦
-ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一動爻
+from ichingshifa import ichingshifa #導入周易筮法套件庫 Import ichingshifa
+ichingshifa.mget_bookgua_details() #手動起卦，從底而上，適合以蓍草起卦者使用，譬如 "初爻7, 二爻8, 三爻9, 四爻7, 五爻8, 上爻9"，即 ichingshifa.mget_bookgua_details('789789') Manually input each of lines' value, e.g. ichingshifa.mget_bookgua_details('789789')
+ichingshifa.bookgua_details() #顯示隨機起卦結果 Randomly to make divination 
+ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起卦 make divination with the specific datetime
+ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一動爻 make divination with the current datetime
 
 ```
