@@ -50,7 +50,7 @@ _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 4. The Six lines with three lines changed, the explanation is lied on the BenGua's general explanation if the change line starts from the first line, while the explantion is base on BianGua's general explanation if the change line starts from the second line. 
 5. The Six lines with four lines changed,  the explanation is upon the lower line of BianGua. 
 6. The Six lines with five lines changed,  the explanation is upon the one line without change on BianGua. 
-7. The Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, the explanation  
+7. The Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, use the general explanation  
 _The above method is advocated on ZhuXi_
 
 
