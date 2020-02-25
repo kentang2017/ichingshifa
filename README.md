@@ -51,7 +51,7 @@ _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 5. If the Six lines with four lines changed,  the explanation is upon the lower line of BianGua. 
 6. If the Six lines with five lines changed,  the explanation is upon the one line without change on BianGua. 
 7. If the Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, use the general explanation  
-_The above method is advocated on ZhuXi_
+_The above method is advocated by ZhuXi, a Confucian of Song Dynasty_
 
 
 ![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/results.png?raw=true)
