@@ -44,13 +44,13 @@ bian  = left_extract + right_extract + guayi #一變，其餘二變倣效此法�
 
 _參考自【宋】‧朱熹、蔡元定《易學啟蒙》卷下 考變占︰_
 
-1. The Six lines without any changed lines, the explantion of Gua is based on the general explanation of BenGua. 
-2. The Six lines with one line changed, the explanation is depended on there. 
-3. The Six lines with two lines changed, the upper one is the main explanation. 
-4. The Six lines with three lines changed, the explanation is lied on the BenGua's general explanation if the change line starts from the first line, while the explantion is base on BianGua's general explanation if the change line starts from the second line. 
-5. The Six lines with four lines changed,  the explanation is upon the lower line of BianGua. 
-6. The Six lines with five lines changed,  the explanation is upon the one line without change on BianGua. 
-7. The Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, use the general explanation  
+1. If the Six lines without any changed lines, the explantion of Gua is based on the general explanation of BenGua. 
+2. If the Six lines with one line changed, the explanation is depended on there. 
+3. If the Six lines with two lines changed, the upper one is the main explanation. 
+4. If the Six lines with three lines changed, the explanation is lied on the BenGua's general explanation if the change line starts from the first line, while the explantion is base on BianGua's general explanation if the change line starts from the second line. 
+5. If the Six lines with four lines changed,  the explanation is upon the lower line of BianGua. 
+6. If the Six lines with five lines changed,  the explanation is upon the one line without change on BianGua. 
+7. If the Six lines with six lines changed, except for QianGua and KunGua with explanation on 用, use the general explanation  
 _The above method is advocated on ZhuXi_
 
 
