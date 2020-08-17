@@ -1,6 +1,0 @@
-README.md
-setup.py
-iching_shifa.egg-info/PKG-INFO
-iching_shifa.egg-info/SOURCES.txt
-iching_shifa.egg-info/dependency_links.txt
-iching_shifa.egg-info/top_level.txt
