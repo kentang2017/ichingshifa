@@ -76,5 +76,7 @@ ichingshifa.mget_bookgua_details() #手動起卦，從底而上，適合以蓍�
 ichingshifa.bookgua_details() #顯示隨機起卦結果 Making divination randomly
 ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起卦 make divination with the specific datetime
 ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一動爻 make divination with the current datetime
-
 ```
+
+## **5. 軟件 Application**:
+https://github.com/kentang2017/iching_shifa/kinshifa-0.2-release.apk
