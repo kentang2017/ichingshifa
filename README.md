@@ -79,4 +79,4 @@ ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一�
 ```
 
 ## **5. 軟件 Application**:
-https://github.com/kentang2017/iching_shifa/kinshifa-0.2-release.apk
+https://github.com/kentang2017/iching_shifa/blob/master/kinshifa-0.2-release.apk
