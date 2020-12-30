@@ -80,6 +80,6 @@ ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一�
 
 ## **5. 軟件 Application**:
 
-![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/WeChat%20%E5%9C%96%E7%89%87_20201230220915.jpg =400x120)
-![alt text](https://github.com/kentang2017/iching_shifa/blob/master/data/WeChat%20%E5%9C%96%E7%89%87_20201230220927.jpg =400x120)
+![](https://github.com/kentang2017/iching_shifa/blob/master/data/WeChat%20%E5%9C%96%E7%89%87_20201230220915.jpg | width=100)
+![](https://github.com/kentang2017/iching_shifa/blob/master/data/WeChat%20%E5%9C%96%E7%89%87_20201230220927.jpg | width=100)
 https://github.com/kentang2017/iching_shifa/blob/master/kinshifa-0.2-release.apk
