@@ -78,5 +78,6 @@ ichingshifa.datetime_bookgua('年', '月', '日', '時') #指定年月日時起�
 ichingshifa.current_bookgua() #按現在的年月日時起卦，此法只有一動爻 make divination with the current datetime
 ```
 
-## **5. 軟件 Application**:
+## **5. 軟件 Application**
+A mobile app of Ichingshifa written in Kivy
 https://github.com/kentang2017/iching_shifa/blob/master/kinshifa-0.2-release.apk
