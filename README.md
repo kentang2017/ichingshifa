@@ -1,4 +1,4 @@
-# Python IchingShifa Python 周易 筮法 卜卦 (stalk divination)
+# Python IchingShifa Python 周易 筮法 六爻 卜卦 (stalk divination)
 
 [![Python](https://img.shields.io/pypi/pyversions/ichingshifa)](https://pypi.org/project/ichingshifa/)
 [![PIP](https://img.shields.io/pypi/v/ichingshifa)](https://pypi.org/project/ichingshifa/)
