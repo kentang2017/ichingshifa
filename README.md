@@ -70,6 +70,7 @@ Later on, an iching expert Jing Fang during the Han Dynasty created a najia meth
 
 ## **4. 安裝套件 Installation**:
 ```
+pip install sxtwl==1.1.0
 pip install --upgrade ichingshifa
 ```
 
