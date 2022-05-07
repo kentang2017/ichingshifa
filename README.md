@@ -65,7 +65,7 @@ _The above method is advocated by ZhuXi, a Confucian of Song Dynasty_
 ## **3. 納甲 Najia**
 其後漢元帝師從梁人焦延壽的京房開創京氏易學，把筮法加入干支納甲，後世學者再加以五行、五星、六親及二十八宿等加以詳推。
 
-Later on, an iching expert Jing Fang during the Han Dynasty created a najia method of hexagram interpretation amongiching. which correlates their separate lines with elements of the Chinese calendar.
+Later on, an iching expert Jing Fang during the Han Dynasty created a najia method of hexagram interpretation among iching. which correlates their separate lines with elements of the Chinese calendar.
 
 
 ## **4. 安裝套件 Installation**:
