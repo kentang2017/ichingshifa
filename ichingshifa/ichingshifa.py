@@ -529,11 +529,11 @@ class Iching():
         shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
         dongyao = oo[4][0][4]
         if shi[2] == daykong[0] or shi[2] == daykong[1] or shi[2] == hourkong[1] or shi[2] == hourkong[0]:
-            sk_dist = "，世爻主隊遇旬空，不利。"
+            sk_dist = "，世爻主隊遇旬空，不利"
         else:
             sk_dist = ""
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
-            yk_dist = "，應爻客隊遇旬空，不利。"
+            yk_dist = "，應爻客隊遇旬空，不利"
         else:
             yk_dist = ""
         if dongyao == "0":
