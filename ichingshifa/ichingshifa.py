@@ -38,7 +38,20 @@ class Iching():
         self.gua_up_code = dict(zip(self.gua,self.up))
         self.ymc = [11,12,1,2,3,4,5,6,7,8,9,10]
         self.rmc = list(range(1,32))
-
+        #旬
+    def shun(self, gz):
+        shun_value = dict(zip(self.Zhi, list(range(1,13)))).get(gz[1]) - dict(zip(self.Gan, list(range(1,11)))).get(gz[0])
+        if shun_value < 0:
+            shun_value = shun_value+12
+        return {0:"戊", 10:"己", 8:"庚", 6:"辛", 4:"壬", 2:"癸"}.get(shun_value)
+    #日空時空
+    def daykong_shikong(self, year, month, day, hour, minute):
+        guxu = {'甲子':{'孤':'戌亥', '虛':'辰巳'}, '甲戌':{'孤':'申酉', '虛':'寅卯'},'甲申':{'孤':'午未', '虛':'子丑'},'甲午':{'孤':'辰巳', '虛':'戌亥'},'甲辰':{'孤':'寅卯', '虛':'申酉'},'甲寅':{'孤':'子丑', '虛':'午未'} }
+        return {"日空":self.multi_key_dict_get(guxu, self.multi_key_dict_get(self.liujiashun_dict(), self.gangzhi(year, month, day, hour, minute)[2])).get("孤"), "時空":self.multi_key_dict_get(guxu, self.multi_key_dict_get(self.liujiashun_dict(), self.gangzhi(year, month, day, hour, minute)[3])).get("孤")}
+    
+    def liujiashun_dict(self):
+        return dict(zip(list(map(lambda x: tuple(x), list(map(lambda x:self.new_list(self.jiazi(), x)[0:10] ,self.jiazi()[0::10])))), self.jiazi()[0::10]))
+    
     def new_list(self, olist, o):
         zhihead_code = olist.index(o)
         res1 = []
@@ -486,10 +499,13 @@ class Iching():
         except AttributeError:
             fufu = ["　","　","　","　","　","　"]
             fufu2 = ["　","　","　","　","　","　"]
+        daykong = self.daykong_shikong(year, month, day, hour, minute).get("日空")
+        hourkong = self.daykong_shikong(year, month, day, hour, minute).get("時空")
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
-        c = "干支︰{}年  {}月  {}日  {}時\n\n".format(gz[0], gz[1], gz[2], gz[3])
-        d = "　　　　　　　　　　{}卦　　　　　　　　　　　　　　　     　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
+        c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
+        c1 = "旬空︰　　　  　　　  {}    {}\n\n".format(daykong, hourkong)
+        d = "　　　　　　　　　　{}卦　　　　　　　　　　　　　　　            　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　伏神　　    本　　　卦　　　　　　　　　　　伏神　　  　之　　　卦\n"
         f = "玄武 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}　\n".format(fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
         g = "白虎 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
@@ -512,8 +528,16 @@ class Iching():
         down_vs_up = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+upgua[1])
         shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
         dongyao = oo[4][0][4]
+        if shi[2] == daykong[0] or shi[2] == daykong[1] or shi[2] == hourkong[1] or shi[2] == hourkong[0]:
+            sk_dist = "，世爻主隊遇旬空，不利。"
+        else:
+            sk_dist = ""
+        if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
+            yk_dist = "，應爻客隊遇旬空，不利。"
+        else:
+            yk_dist = ""
         if dongyao == "0":
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】，客隊應爻為【{}】，主客關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],ying[0:4],shi_vs_ying)
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}，客隊應爻為【{}】{}，主客關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,ying[0:4],yk_dist,shi_vs_ying)
         if dongyao == "1":
             num = int(ogua.index("9"))
             dong2 = self.multi_key_dict_get({(0,1,2):"動爻在下卦，即客隊，", (3,4,5):"動爻在上卦，即主隊，"},num)
@@ -526,11 +550,11 @@ class Iching():
                 vs = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+bian[1])
             vs2 = self.find_wx_relation(dong[2],shi[2])
             vs3 = self.find_wx_relation(dong[2],ying[2])
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】，客隊應爻為【{}】，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，主隊世爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],ying[0:4],shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
-        return a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}，客隊應爻為【{}】{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，主隊世爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,ying[0:4],yk_dist,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
+        return a+b+c+c1+d+e+f+g+h+i+j+k+l+m+n+o
         
     
     
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,27,15,30))
-    #print(Iching().qigua_time(2023,5,27,13,0).get('本卦'))
+    print(Iching().qigua_time(2023,5,28,13,30))
