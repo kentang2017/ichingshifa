@@ -24,7 +24,7 @@ def get_file_content_as_string(path):
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
-st.set_page_config(layout="wide",page_title="堅周易排盘")
+st.set_page_config(layout="wide",page_title="太鳦周易排盘")
 pan,update = st.tabs([' 排盤 ', ' 日誌 ' ])
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
@@ -42,7 +42,7 @@ with update:
     st.markdown(get_file_content_as_string("update.md"))
   
 with pan:
-    st.header('周易排盤')
+    st.header('太鳦周易排盤')
     pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
     output2 = st.empty()
     with st_capture(output2.code):
