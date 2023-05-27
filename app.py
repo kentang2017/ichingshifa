@@ -6,6 +6,7 @@ from contextlib import contextmanager, redirect_stdout
 from sxtwl import fromSolar
 from io import StringIO
 import streamlit.components.v1 as components
+from ichingshifa import ichingshifa
 
 @contextmanager
 def st_capture(output_func):
