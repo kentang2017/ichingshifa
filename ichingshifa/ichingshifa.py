@@ -446,7 +446,7 @@ class Iching():
         now = datetime.datetime.now()
         return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
     
-    def display_liuyao(self, year, month, day, hour, minute):
+    def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
         ogua = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')[0]
         bengua = self.qigua_time(year, month, day, hour, minute).get("本卦")
