@@ -532,26 +532,48 @@ class Iching():
             sk_dist = "，世爻主隊遇旬空，不利"
         else:
             sk_dist = ""
+        god_dist1 = {"兄":"，忌神持世，不利","父":"，仇神持世，不利","妻":"，用神持世，有利", "子":"，原神持世，費心", "官":"，泄神持世，有利"}  
+        god_dist2 = {"兄":"，忌神持應，不利","父":"，仇神持應，不利","妻":"，用神持應，有利", "子":"，原神持應，費心", "官":"，泄神持應，有利"}  
+        s_dist2 = god_dist1.get(shi[0])
+        y_dist2 = god_dist2.get(ying[0])
+
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
             yk_dist = "，應爻客隊遇旬空，不利"
         else:
             yk_dist = ""
+        if "官" in shi == True:
+            sguan = "，世見官鬼爻，皆敗"
+        else:
+            sguan = ""
+        if "官" in ying == True:
+            yguan = "，應見官鬼爻，皆敗"
+        else:
+            yguan = ""
         if dongyao == "0":
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}，客隊應爻為【{}】{}，主客關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,ying[0:4],yk_dist,shi_vs_ying)
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying)
         if dongyao == "1":
-            num = int(ogua.index("9"))
+            try:
+                num = int(ogua.index("9")) 
+                dong = bg_yaolist[int(ogua.index("9"))]
+            except ValueError:
+                num = int(ogua.index("6")) 
+                dong = bg_yaolist[int(ogua.index("6"))]
             dong2 = self.multi_key_dict_get({(0,1,2):"動爻在下卦，即客隊，", (3,4,5):"動爻在上卦，即主隊，"},num)
-            dong = bg_yaolist[int(ogua.index("9"))]
             if dong2[3] == "下":
                 bian = eightgua.get(gb[0:3])
                 vs = self.multi_key_dict_get(wuxing_relation_2,  bian[1]+upgua[1])
             if dong2[3] == "上":
                 bian = eightgua.get(gb[3:6])
                 vs = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+bian[1])
-            vs2 = self.find_wx_relation(dong[2],shi[2])
-            vs3 = self.find_wx_relation(dong[2],ying[2])
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}，客隊應爻為【{}】{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，主隊世爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,ying[0:4],yk_dist,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
+            try:
+                vs2 = self.find_wx_relation(dong[2],shi[2])
+                vs3 = self.find_wx_relation(dong[2],ying[2])
+            except IndexError:
+                vs2 = ""
+                vs3 = ""
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，主隊世爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
         return a+b+c+c1+d+e+f+g+h+i+j+k+l+m+n+o
+        
         
     
     
