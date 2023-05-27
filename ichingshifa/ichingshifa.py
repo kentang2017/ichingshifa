@@ -3,6 +3,8 @@ import pickle, random, datetime, os,itertools
 from ephem import Date
 import numpy as np
 from sxtwl import fromSolar
+import cn2an
+from cn2an import an2cn
 
 
 class Iching():
@@ -216,10 +218,9 @@ class Iching():
             shifa_results.append(yao)
         return "".join(str(e) for e in shifa_results[:6])
 
-
-    def datetime_bookgua(self, y,m,d,h):
-        gangzhi = self.gangzhi(y,m,d,h)
-        ld = self.lunar_date_d(y,m,d,h)
+    def datetime_bookgua(self, y,m,d,h,minute):
+        gangzhi = self.gangzhi(y,m,d,h,minute)
+        ld = self.lunar_date_d(y,m,d)
         zhi_code = dict(zip(self.dizhi, range(1,13)))
         yz_code = zhi_code.get(gangzhi[0][1])
         hz_code = zhi_code.get(gangzhi[3][1])
@@ -377,7 +378,7 @@ class Iching():
             fuyao1 = fu_gua_lq[fu_num] + fu_gua_gang[fu_num] +  fu_gua_zhi[fu_num] + fu_gua_wu[fu_num]
             fu_yao = {"伏神所在爻": lq[fuyao], "伏神六親":fu, "伏神排爻數字":fu_num, "本卦伏神所在爻":lq[fu_num]+t[fu_num]+d[fu_num]+w[fu_num], "伏神爻":fuyao1}
             
-        except ValueError:
+        except (ValueError, IndexError ,AttributeError):
             fu_yao = ""
         
         return {"卦":gua_name, 
@@ -408,7 +409,7 @@ class Iching():
                 fei = fu_ben_yao
             else:
                 fei = ""
-        except IndexError:
+        except (ValueError, IndexError ,AttributeError):
             fei = ""
         
         return {"本卦":a, "之卦":b, "飛神":fei}
@@ -444,6 +445,40 @@ class Iching():
     def qigua_now(self):
         now = datetime.datetime.now()
         return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
-
+    
+    def display_liuyao(self, year, month, day, hour, minute):
+        gz = self.gangzhi(year, month, day, hour, minute)
+        ogua = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')[0]
+        bengua = self.qigua_time(year, month, day, hour, minute).get("本卦")
+        ggua = self.qigua_time(year, month, day, hour, minute).get("之卦")
+        gb = ogua.replace("9","8").replace("6","7")
+        b1 = self.qigua_time(year, month, day, hour, minute).get("本卦").get("星宿")
+        b2 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('六親用神')
+        b3 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('納甲')
+        b4 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('五行')
+        b5 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('世應爻')
+        g1 = self.qigua_time(year, month, day, hour, minute).get("之卦").get("星宿")
+        g2 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('六親用神')
+        g3 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('納甲')
+        g4 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('五行')
+        g5 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('世應爻')
+        guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
+        bg = [guayaodict.get(i) for i in list(ogua)]
+        gb1 = [guayaodict.get(i) for i in list(gb)]
+        a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
+        b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
+        c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
+        d = "　　　　　　　　　　{}卦　　　　　　　　　　　　　　　　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
+        e = "六神　　伏神　　本　　　卦　　　　　　　　　　　 　　之　　　卦\n"
+        f = "玄武 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}　\n".format(b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
+        g = "白虎 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
+        h = "螣蛇 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[3],b2[3],b3[3],b4[3],b5[3],bg[3],g1[3],g2[3],g3[3],g4[3],g5[3],gb1[3])
+        i = "勾陈 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[2],b2[2],b3[2],b4[2],b5[2],bg[2],g1[2],g2[2],g3[2],g4[2],g5[2],gb1[2])
+        j = "朱雀 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[1],b2[1],b3[1],b4[1],b5[1],bg[1],g1[1],g2[1],g3[1],g4[1],g5[1],gb1[1])
+        k = "青龙 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[0],b2[0],b3[0],b4[0],b5[0],bg[0],g1[0],g2[0],g3[0],g4[0],g5[0],gb1[0])
+        return a+b+c+d+e+f+g+h+i+j+k
+        
+    
+    
 if __name__ == '__main__':
-    print(Iching().qigua_now())
+    print(Iching().display_liuyao(2023,5,27,16,0))
