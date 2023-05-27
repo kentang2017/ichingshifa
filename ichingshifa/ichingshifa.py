@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-#
 import pickle, random, datetime, os,itertools
+from ephem import Date
 import numpy as np
-import sxtwl
+from sxtwl import fromSolar
+
 
 class Iching():
     #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
@@ -71,22 +73,66 @@ class Iching():
         sixtyfourguadescription = self.sixtyfourgua_description
         return sixtyfourguadescription.get(gua)
     
-
-    #干支
-    def gangzhi(self, year, month, day, hour):
-        lunar = sxtwl.Lunar()
-        cdate = lunar.getDayBySolar(year, month, day)
-        yy_mm_dd = self.tiangan[cdate.Lyear2.tg]+self.dizhi[cdate.Lyear2.dz],  self.tiangan[cdate.Lmonth2.tg]+self.dizhi[cdate.Lmonth2.dz],  self.tiangan[cdate.Lday2.tg]+self.dizhi[cdate.Lday2.dz]
-        timegz = lunar.getShiGz(cdate.Lday2.tg, hour)
-        new_hh = self.tiangan[timegz.tg]+self.dizhi[timegz.dz]
-        return yy_mm_dd[0], yy_mm_dd[1],  yy_mm_dd[2], new_hh
-
+    #五虎遁，起正月
+    def find_lunar_month(self, year):
+        fivetigers = {
+        tuple(list('甲己')):'丙寅',
+        tuple(list('乙庚')):'戊寅',
+        tuple(list('丙辛')):'庚寅',
+        tuple(list('丁壬')):'壬寅',
+        tuple(list('戊癸')):'甲寅'
+        }
+        if self.multi_key_dict_get(fivetigers, year[0]) == None:
+            result = self.multi_key_dict_get(fivetigers, year[1])
+        else:
+            result = self.multi_key_dict_get(fivetigers, year[0])
+        return dict(zip(range(1,13), self.new_list(self.jiazi(), result)[:12]))
+    
+    #五鼠遁，起子時
+    def find_lunar_hour(self, day):
+        fiverats = {
+        tuple(list('甲己')):'甲子',
+        tuple(list('乙庚')):'丙子',
+        tuple(list('丙辛')):'戊子',
+        tuple(list('丁壬')):'庚子',
+        tuple(list('戊癸')):'壬子'
+        }
+        if self.multi_key_dict_get(fiverats, day[0]) == None:
+            result = self.multi_key_dict_get(fiverats, day[1])
+        else:
+            result = self.multi_key_dict_get(fiverats, day[0])
+        return dict(zip(list(self.dizhi), self.new_list(self.jiazi(), result)[:12]))
     #農曆
-    def lunar_date_d(self, year, month, day, hour):
-        lunar = sxtwl.Lunar()
-        day = lunar.getDayBySolar(year, month, day)
-        return {"月": self.ymc[day.Lmc], "日":self.rmc[day.Ldi]}
-
+    def lunar_date_d(self, year, month, day):
+        day = fromSolar(year, month, day)
+        return {"年":day.getLunarYear(),  "月": day.getLunarMonth(), "日":day.getLunarDay()}
+    #干支
+    def gangzhi(self, year, month, day, hour, minute):
+        if year == 0:
+            return ["無效"]
+        if year < 0:
+            year = year + 1 
+        if hour == 23:
+            d = Date(round((Date("{}/{}/{} {}:00:00.00".format(str(year).zfill(4), str(month).zfill(2), str(day+1).zfill(2), str(0).zfill(2)))), 3))
+        else:
+            d = Date("{}/{}/{} {}:00:00.00".format(str(year).zfill(4), str(month).zfill(2), str(day).zfill(2), str(hour).zfill(2) ))
+        dd = list(d.tuple())
+        cdate = fromSolar(dd[0], dd[1], dd[2])
+        yTG,mTG,dTG,hTG = "{}{}".format(self.tiangan[cdate.getYearGZ().tg], self.dizhi[cdate.getYearGZ().dz]), "{}{}".format(self.tiangan[cdate.getMonthGZ().tg],self.dizhi[cdate.getMonthGZ().dz]), "{}{}".format(self.tiangan[cdate.getDayGZ().tg], self.dizhi[cdate.getDayGZ().dz]), "{}{}".format(self.tiangan[cdate.getHourGZ(dd[3]).tg], self.dizhi[cdate.getHourGZ(dd[3]).dz])
+        if year < 1900:
+            mTG1 = self.find_lunar_month(yTG).get(self.lunar_date_d(year, month, day).get("月"))
+        else:
+            mTG1 = mTG
+        hTG1 = self.find_lunar_hour(dTG).get(hTG[1])
+        gangzhi_minute = self.minutes_jiazi_d().get(str(hour)+":"+str(minute))
+        return [yTG, mTG1, dTG, hTG1, gangzhi_minute]
+   
+    #分干支
+    def minutes_jiazi_d(self):
+        t = [f"{h}:{m}" for h in range(24) for m in range(60)]
+        c = list(itertools.chain.from_iterable([[i]*24 for i in self.jiazi()]))
+        #minutelist = dict(zip(t, cycle(repeat_list(2, jiazi()))))
+        return dict(zip(t, c))
 
     def mget_bookgua_details(self, guayao):
         getgua = self.multi_key_dict_get(self.sixtyfourgua, guayao)
@@ -367,9 +413,9 @@ class Iching():
         
         return {"本卦":a, "之卦":b, "飛神":fei}
 
-    def qigua_time(self, y, m, d, h):
-        gangzhi = self.gangzhi(y,m,d,h)
-        ld = self.lunar_date_d(y,m,d,h)
+    def qigua_time(self, y, m, d, h, minute):
+        gangzhi = self.gangzhi(y,m,d,h, minute)
+        ld = self.lunar_date_d(y,m,d)
         zhi_code = dict(zip(self.dizhi, range(1,13)))
         yz_code = zhi_code.get(gangzhi[0][1])
         hz_code = zhi_code.get(gangzhi[3][1])
@@ -397,7 +443,7 @@ class Iching():
 
     def qigua_now(self):
         now = datetime.datetime.now()
-        return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour))
+        return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
 
 if __name__ == '__main__':
     print(Iching().qigua_now())
