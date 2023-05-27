@@ -23,8 +23,8 @@ def get_file_content_as_string(path):
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
-st.set_page_config(layout="wide",page_title="堅周 - 大六壬排盘")
-pan,example,guji,update = st.tabs([' 排盤 ', ' 案例 ', ' 古籍 ',' 日誌 ' ])
+st.set_page_config(layout="wide",page_title="堅周易排盘")
+pan,update = st.tabs([' 排盤 ', ' 日誌 ' ])
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
     pp_time=st.time_input("時間",pdlm.now(tz='Asia/Shanghai').time())
@@ -36,9 +36,9 @@ with st.sidebar:
     h = int(pp[0])
     min = int(pp[1])
 
-with guji:
-    st.header('古籍')
-    st.markdown(get_file_content_as_string("guji.md"))
+with update:
+    st.header('日誌')
+    st.markdown(get_file_content_as_string("update.md"))
   
 with pan:
     st.header('六壬排盘')
