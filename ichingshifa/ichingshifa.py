@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-#
-import pickle, random, datetime, os,itertools
+import pickle, random, datetime, os,itertools,re
 from ephem import Date
 import numpy as np
 from sxtwl import fromSolar
 import cn2an
 from cn2an import an2cn
 
+wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
+wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
 
 class Iching():
     #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
@@ -60,6 +62,13 @@ class Iching():
             if k in keys:
                 return v
         return None
+    
+    def Ganzhiwuxing(self, gangorzhi):
+        ganzhiwuxing = dict(zip(list(map(lambda x: tuple(x),"甲寅乙卯震巽,丙巳丁午離,壬亥癸子坎,庚申辛酉乾兌,未丑戊己未辰戌艮坤".split(","))), list("木火水金土")))
+        return self.multi_key_dict_get(ganzhiwuxing, gangorzhi)
+
+    def find_wx_relation(self, zhi1, zhi2):
+        return self.multi_key_dict_get(wuxing_relation_2, self.Ganzhiwuxing(zhi1) + self.Ganzhiwuxing(zhi2))
     
     def find_six_mons(self, daygangzhi):
         mons = [i[1] for i in self.data.get("六獸")]
@@ -277,7 +286,7 @@ class Iching():
         d = dd+ud
         w = dw+uw
         find_gua_wuxing = self.multi_key_dict_get(self.data.get("八宮卦五行"), self.multi_key_dict_get(sixtyfourgua, gua))
-        liuqin = [i[0] for i in self.liuqin]
+        #liuqin = [i[0] for i in self.liuqin]
         lq = [self.multi_key_dict_get(self.liuqin_w,i+find_gua_wuxing) for i in dw+uw]
         gua_name = self.multi_key_dict_get(sixtyfourgua, gua)
         find_su = dict(zip(self.sixtyfour_gua_index, self.chin_iter(self.chin_list, "參"))).get(gua_name)
@@ -511,5 +520,7 @@ class Iching():
         return a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
         
     
+    
 if __name__ == '__main__':
-    print(Iching().display_liuyao(2023,5,27,16,0))
+    print(Iching().display_pan(2023,5,27,15,30))
+    #print(Iching().qigua_time(2023,5,27,13,0).get('本卦'))
