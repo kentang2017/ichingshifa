@@ -466,6 +466,8 @@ class Iching():
         guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
+        bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
+        #gg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n\n".format(gz[0], gz[1], gz[2], gz[3])
@@ -482,8 +484,31 @@ class Iching():
             m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
         except IndexError:
             m = "求得【{}之{}】，{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2])
-        n = "{}卦\n【卦辭】︰{}\n【彖】︰{}\n{}\n{}\n{}\n{}\n{}\n{}".format(oo[1],oo[3].get(0), oo[3].get(7)[2:], oo[3].get(6), oo[3].get(5), oo[3].get(4), oo[3].get(3), oo[3].get(2), oo[3].get(1)  )
-        return a+b+c+d+e+f+g+h+i+j+k+l+m+n
+        n = "{}卦\n【卦辭】︰{}\n【彖】︰{}\n{}\n{}\n{}\n{}\n{}\n{}\n\n".format(oo[1],oo[3].get(0), oo[3].get(7)[2:], oo[3].get(6), oo[3].get(5), oo[3].get(4), oo[3].get(3), oo[3].get(2), oo[3].get(1)  )
+        eightgua = { '777':"乾金",  '778':"巽木",  '787':"離火",  '788':"兌金",  '877':"震木", '878':"坎水",  '887':"艮土",  '888':"坤土"}
+        downgua = eightgua.get(ogua[0:3].replace("6","8").replace("9","7"))
+        upgua = eightgua.get(ogua[3:6].replace("6","8").replace("9","7"))
+        shi =  bg_yaolist[["世" in i  for i in bg_yaolist].index(True)]
+        ying = bg_yaolist[["應" in i  for i in bg_yaolist].index(True)]
+        down_vs_up = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+upgua[1])
+        shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
+        dongyao = oo[4][0][4]
+        if dongyao == "0":
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】，客隊應爻為【{}】，主客關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],ying[0:4],shi_vs_ying)
+        if dongyao == "1":
+            num = int(ogua.index("9"))
+            dong2 = self.multi_key_dict_get({(0,1,2):"動爻在下卦，即客隊，", (3,4,5):"動爻在上卦，即主隊，"},num)
+            dong = bg_yaolist[int(ogua.index("9"))]
+            if dong2[3] == "下":
+                bian = eightgua.get(gb[0:3])
+                vs = self.multi_key_dict_get(wuxing_relation_2,  bian[1]+upgua[1])
+            if dong2[3] == "上":
+                bian = eightgua.get(gb[3:6])
+                vs = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+bian[1])
+            vs2 = self.find_wx_relation(dong[2],shi[2])
+            vs3 = self.find_wx_relation(dong[2],ying[2])
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】，客隊應爻為【{}】，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，主隊世爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],ying[0:4],shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
+        return a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
         
     
 if __name__ == '__main__':
