@@ -448,6 +448,7 @@ class Iching():
     
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
+        oo = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')
         ogua = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')[0]
         bengua = self.qigua_time(year, month, day, hour, minute).get("本卦")
         ggua = self.qigua_time(year, month, day, hour, minute).get("之卦")
@@ -467,16 +468,19 @@ class Iching():
         gb1 = [guayaodict.get(i) for i in list(gb)]
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
-        c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
+        c = "干支︰{}年  {}月  {}日  {}時\n\n".format(gz[0], gz[1], gz[2], gz[3])
         d = "　　　　　　　　　　{}卦　　　　　　　　　　　　　　　　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　伏神　　本　　　卦　　　　　　　　　　　 　　之　　　卦\n"
         f = "玄武 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}　\n".format(b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
         g = "白虎 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
         h = "螣蛇 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[3],b2[3],b3[3],b4[3],b5[3],bg[3],g1[3],g2[3],g3[3],g4[3],g5[3],gb1[3])
-        i = "勾陈 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[2],b2[2],b3[2],b4[2],b5[2],bg[2],g1[2],g2[2],g3[2],g4[2],g5[2],gb1[2])
+        i = "勾陳 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[2],b2[2],b3[2],b4[2],b5[2],bg[2],g1[2],g2[2],g3[2],g4[2],g5[2],gb1[2])
         j = "朱雀 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[1],b2[1],b3[1],b4[1],b5[1],bg[1],g1[1],g2[1],g3[1],g4[1],g5[1],gb1[1])
-        k = "青龙 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[0],b2[0],b3[0],b4[0],b5[0],bg[0],g1[0],g2[0],g3[0],g4[0],g5[0],gb1[0])
-        return a+b+c+d+e+f+g+h+i+j+k
+        k = "青龍 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n\n\n".format(b1[0],b2[0],b3[0],b4[0],b5[0],bg[0],g1[0],g2[0],g3[0],g4[0],g5[0],gb1[0])
+        l = "【大衍筮法】\n"
+        m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
+        n = "{}卦\n【卦辭】︰{}\n【彖】︰{}\n{}\n{}\n{}\n{}\n{}\n{}".format(oo[1],oo[3].get(0), oo[3].get(7)[2:], oo[3].get(6), oo[3].get(5), oo[3].get(4), oo[3].get(3), oo[3].get(2), oo[3].get(1)  )
+        return a+b+c+d+e+f+g+h+i+j+k+l+m+n
         
     
     
