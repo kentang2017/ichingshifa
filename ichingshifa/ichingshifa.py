@@ -478,11 +478,13 @@ class Iching():
         j = "朱雀 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n".format(b1[1],b2[1],b3[1],b4[1],b5[1],bg[1],g1[1],g2[1],g3[1],g4[1],g5[1],gb1[1])
         k = "青龍 　　　　　 {} {}{}{} {}{}　　　　　{} {}{}{} {}{}  \n\n\n".format(b1[0],b2[0],b3[0],b4[0],b5[0],bg[0],g1[0],g2[0],g3[0],g4[0],g5[0],gb1[0])
         l = "【大衍筮法】\n"
-        m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
+        try:
+            m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
+        except IndexError:
+            m = "求得【{}之{}】，{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2])
         n = "{}卦\n【卦辭】︰{}\n【彖】︰{}\n{}\n{}\n{}\n{}\n{}\n{}".format(oo[1],oo[3].get(0), oo[3].get(7)[2:], oo[3].get(6), oo[3].get(5), oo[3].get(4), oo[3].get(3), oo[3].get(2), oo[3].get(1)  )
         return a+b+c+d+e+f+g+h+i+j+k+l+m+n
         
-    
     
 if __name__ == '__main__':
     print(Iching().display_liuyao(2023,5,27,16,0))
