@@ -42,12 +42,9 @@ with update:
     st.markdown(get_file_content_as_string("update.md"))
   
 with pan:
-    st.header('六壬排盘')
-    cm =  dict(zip(list(range(1,13)), list("正二三四五六七八九十")+["十一","十二"])).get(int(lunar_date_d(y, m, d).get("月").replace("月", "")))
-    qgz = kinqimen.Qimen(y,m,d,h).gangzhi()
-    jq =  kinqimen.Qimen(y,m,d,h).find_jieqi()
-    ltext = kinliuren.Liuren(jq, cm, qgz[2], qgz[3]).result(0)
+    st.header('周易排盤')
+    pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
     output2 = st.empty()
     with st_capture(output2.code):
-        print("{}年{}月{}日{}時".format(y,m,d,h))
-        print("{} | 節氣:{} | {}課 \n".format(ltext.get("日期"),ltext.get("節氣"), ltext.get("格局")[0]))
+        print(pan)
+
