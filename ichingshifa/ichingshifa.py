@@ -512,8 +512,8 @@ class Iching():
                 ff_relation = flyfu_relation + "】。"
             flyfu_dist = "伏神爻【"+fyao1+"】，飛神【"+flygodyao+"】在【"+flylocation+"】，伏神【"+fugodyao+"】，飛伏關係為【"+ff_relation
         except AttributeError:
-            fufu = ["　","　","　","　","　","　"]
-            fufu2 = ["　","　","　","　","　","　"]
+            fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
+            fufu2 = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             flyfu_dist = ""
         
         
