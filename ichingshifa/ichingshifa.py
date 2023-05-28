@@ -469,7 +469,7 @@ class Iching():
         return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
     
    
-    def display_pan(self, year, month, day, hour, minute):
+      def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')
         ogua = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')[0]
@@ -503,13 +503,17 @@ class Iching():
             flylocation = bengua.get("伏神").get('本卦伏神所在爻')
             flygodyao = bengua.get("伏神").get('本卦伏神所在爻')[2:]
             fugodyao = fyao1[2:]
-            flyfu_relation = self.find_wx_relation(fugodyao[0],fugodyao[0])
+            flyfu_relation = self.find_wx_relation(flygodyao[0],fugodyao[0])
             if flyfu_relation == "我尅":
                 ff_relation = "我尅】，飛來克伏為害，為凶。"
             if flyfu_relation == "尅我":
                 ff_relation = "尅我】，伏克飛神為出暴，出暴者，凶而快。"
-            else:
-                ff_relation = flyfu_relation + "】。"
+            if flyfu_relation == "比和":
+                ff_relation = "比和】。"
+            if flyfu_relation == "生我":
+                ff_relation = flyfu_relation + "生我】。"
+            if flyfu_relation == "我生":
+                ff_relation = flyfu_relation + "我生】。"
             flyfu_dist = "伏神爻【"+fyao1+"】，飛神【"+flygodyao+"】在【"+flylocation+"】，伏神【"+fugodyao+"】，飛伏關係為【"+ff_relation
         except AttributeError:
             fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
@@ -594,7 +598,7 @@ class Iching():
             else:
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{}".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist)
         return a+b+c+c1+d+e+f+g+h+i+j+k+l+m+n+o
-        
+    
     
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,27,15,30))
