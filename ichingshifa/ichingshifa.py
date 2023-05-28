@@ -493,20 +493,30 @@ class Iching():
         try:
             fugod1 = bengua.get("伏神").get("伏神排爻數字")
             fugod2 = ggua.get("伏神").get("伏神排爻數字")
-            fu_location = {0:["伏","　","　","　","　","　"] ,1:["　","伏","　","　","　","　"], 2:["　","　","伏","　","　","　"], 3:["　","　","　","伏","　","　"], 4:["　","　","　","　","伏","　"], 5:["　","　","　","　","　","伏"]}
+            fyao1 = bengua.get("伏神").get("伏神爻")
+            fyao2 = ggua.get("伏神").get("伏神爻")
+            fu_location = {0:[fyao1,"　　　　","　　　　","　　　　","　　　　","　　　　"] ,1:["　　　　",fyao1,"　　　　","　　　　","　　　　","　　　　"], 2:["　　　　","　　　　",fyao1,"　　　　","　　　　","　　　　"], 3:["　　　　","　　　　","　　　　",fyao1,"　　　　","　　　　"], 4:["　　　　","　　　　","　　　　","　　　　",fyao1,"　　　　"], 5:["　　　　","　　　　","　　　　","　　　　","　　　　",fyao1]}
+            fu_location1 = {0:[fyao2,"　　　　","　　　　","　　　　","　　　　","　　　　"] ,1:["　　　　",fyao2,"　　　　","　　　　","　　　　","　　　　"], 2:["　　　　","　　　　",fyao2,"　　　　","　　　　","　　　　"], 3:["　　　　","　　　　","　　　　",fyao2,"　　　　","　　　　"], 4:["　　　　","　　　　","　　　　","　　　　",fyao2,"　　　　"], 5:["　　　　","　　　　","　　　　","　　　　","　　　　",fyao2]}
             fufu = fu_location.get(fugod1)
-            fufu2 = fu_location.get(fugod2)
+            fufu2 = fu_location1.get(fugod2)
+            flylocation = bengua.get("伏神").get('本卦伏神所在爻')
+            flygodyao = bengua.get("伏神").get('本卦伏神所在爻')[2:]
+            fugodyao = fyao1[2:]
+            flyfu_dist = "伏神爻【"+fyao1+"】，飛神【"+flygodyao+"】在【"+flylocation+"】，伏神【"+fugodyao+"】，飛伏關係為【"+self.find_wx_relation(fugodyao[0],fugodyao[0])+"】。"
         except AttributeError:
             fufu = ["　","　","　","　","　","　"]
             fufu2 = ["　","　","　","　","　","　"]
+            flyfu_dist = ""
+        
+        
         daykong = self.daykong_shikong(year, month, day, hour, minute).get("日空")
         hourkong = self.daykong_shikong(year, month, day, hour, minute).get("時空")
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
         c1 = "旬空︰　　　  　　　  {}    {}\n\n".format(daykong, hourkong)
-        d = "　　　　　　　　　　{}卦　　　　　　　　　　　　　　　            　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
-        e = "六神　　伏神　　    本　　　卦　　　　　　　　　　　伏神　　  　之　　　卦\n"
+        d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
+        e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　  之卦\n"
         f = "玄武 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}　\n".format(fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
         g = "白虎 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
         h = "螣蛇 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[3],b1[3],b2[3],b3[3],b4[3],b5[3],bg[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3],gb1[3])
@@ -566,14 +576,16 @@ class Iching():
                 bian = eightgua.get(gb[3:6])
                 vs = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+bian[1])
             try:
-                vs2 = self.find_wx_relation(dong[2],shi[2])
-                vs3 = self.find_wx_relation(dong[2],ying[2])
+                vs2 = self.find_wx_relation(shi[2],dong[2])
+                vs3 = self.find_wx_relation(ying[2],dong[2])
             except IndexError:
                 vs2 = ""
                 vs3 = ""
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
+            if  bengua.get("伏神") == "":
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3)
+            else:
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{}".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist)
         return a+b+c+c1+d+e+f+g+h+i+j+k+l+m+n+o
-        
     
     
 if __name__ == '__main__':
