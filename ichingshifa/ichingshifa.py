@@ -520,7 +520,7 @@ class Iching():
         except IndexError:
             m = "求得【{}之{}】，{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2])
         n = "{}卦\n【卦辭】︰{}\n【彖】︰{}\n{}\n{}\n{}\n{}\n{}\n{}\n\n".format(oo[1],oo[3].get(0), oo[3].get(7)[2:], oo[3].get(6), oo[3].get(5), oo[3].get(4), oo[3].get(3), oo[3].get(2), oo[3].get(1)  )
-        eightgua = { '777':"乾金",  '778':"巽木",  '787':"離火",  '788':"兌金",  '877':"震木", '878':"坎水",  '887':"艮土",  '888':"坤土"}
+        eightgua = { '777':"乾金",  '778':"兌金",  '787':"離火",  '788':"震木",  '877':"巽木", '878':"坎水",  '887':"艮土",  '888':"坤土"}
         downgua = eightgua.get(ogua[0:3].replace("6","8").replace("9","7"))
         upgua = eightgua.get(ogua[3:6].replace("6","8").replace("9","7"))
         shi =  bg_yaolist[["世" in i  for i in bg_yaolist].index(True)]
