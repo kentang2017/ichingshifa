@@ -515,7 +515,7 @@ class Iching():
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
         c1 = "旬空︰　　　  　　　  {}    {}\n\n".format(daykong, hourkong)
-        d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
+        d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　            {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　   伏神　　       本卦　　　　　　　　　　　       伏神　　  　  之卦\n"
         f = "玄武 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}　\n".format(fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
         g = "白虎 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
