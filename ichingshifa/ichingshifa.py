@@ -438,7 +438,7 @@ class Iching():
             fei = ""
         return {"本卦":a, "之卦":b, "飛神":fei}
     
-        def qigua_time(self, y, m, d, h, minute):
+    def qigua_time(self, y, m, d, h, minute):
         gangzhi = self.gangzhi(y,m,d,h, minute)
         ld = self.lunar_date_d(y,m,d)
         zhi_code = dict(zip(self.dizhi, range(1,13)))
