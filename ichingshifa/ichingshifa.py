@@ -437,6 +437,39 @@ class Iching():
         except (ValueError, IndexError ,AttributeError):
             fei = ""
         return {"本卦":a, "之卦":b, "飛神":fei}
+    
+        def qigua_time(self, y, m, d, h, minute):
+        gangzhi = self.gangzhi(y,m,d,h, minute)
+        ld = self.lunar_date_d(y,m,d)
+        zhi_code = dict(zip(self.dizhi, range(1,13)))
+        yz_code = zhi_code.get(gangzhi[0][1])
+        hz_code = zhi_code.get(gangzhi[3][1])
+        cm = ld.get("月")
+        cd =  ld.get("日")
+        eightgua = self.data.get("八卦數值")
+        upper_gua_remain = (yz_code +cm+cd+hz_code) % 8
+        if upper_gua_remain == 0:
+            upper_gua_remain = int(8)
+        upper_gua = eightgua.get(upper_gua_remain)
+        lower_gua_remain = (yz_code+cm+cd) % 8
+        if lower_gua_remain == 0:
+            lower_gua_remain = int(8)
+        lower_gua = eightgua.get(lower_gua_remain)
+        combine_gua1 =lower_gua+upper_gua
+        combine_gua = list(combine_gua1)
+        bian_yao = (yz_code+cm+cd+hz_code) % 6
+        if bian_yao == 0:
+            bian_yao = int(6)
+        elif bian_yao != 0:
+            combine_gua[bian_yao -1] = combine_gua[bian_yao-1].replace("7","9").replace("8","6")
+        bian_gua = "".join(combine_gua)
+        ggua = bian_gua.replace("6","7").replace("9","8")
+        return {**{'日期':gangzhi[0]+"年"+gangzhi[1]+"月"+gangzhi[2]+"日"+gangzhi[3]+"時"}, **{"大衍筮法":self.mget_bookgua_details(bian_gua)}, **self.decode_two_gua(bian_gua, ggua, gangzhi[2])}
+
+    def qigua_now(self):
+        now = datetime.datetime.now()
+        return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
+ 
 
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
