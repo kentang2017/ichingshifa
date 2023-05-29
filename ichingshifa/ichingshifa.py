@@ -614,14 +614,14 @@ class Iching():
             except IndexError:
                 vs2 = ""
                 vs3 = ""
-            if  bengua.get("伏神") == "":
+            if  flyfu_dist == "":
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
-            else:
+            if  flyfu_dist != "":
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{} \n7.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
         return a+b+c+c1+c2+c3+c4+d+e+f+g+h+i+j+k+l+m+n+o
     #qin_elements
     #
     
 if __name__ == '__main__':
-    print(Iching().display_pan(2023,5,29,15,30))
+    print(Iching().display_pan(2023,5,29,18,30))
     #print(Iching().qigua_time(2023,5,28,13,30))
