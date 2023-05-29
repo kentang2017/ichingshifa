@@ -490,6 +490,7 @@ class Iching():
         gb1 = [guayaodict.get(i) for i in list(gb)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         #gg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
+        smons = self.find_six_mons(gz[2][0])
         try:
             fugod1 = bengua.get("伏神").get("伏神排爻數字")
             fugod2 = ggua.get("伏神").get("伏神排爻數字")
@@ -526,13 +527,14 @@ class Iching():
         c1 = "旬空︰　　　  　　　  {}    {}\n\n".format(daykong, hourkong)
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　  之卦\n"
-        f = "玄武 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}　\n".format(fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5],bg[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5],gb1[5])
-        g = "白虎 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4],bg[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4],gb1[4])
-        h = "螣蛇 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[3],b1[3],b2[3],b3[3],b4[3],b5[3],bg[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3],gb1[3])
-        i = "勾陳 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[2],b1[2],b2[2],b3[2],b4[2],b5[2],bg[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2],gb1[2])
-        j = "朱雀 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(fufu[1],b1[1],b2[1],b3[1],b4[1],b5[1],bg[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1],gb1[1])
-        k = "青龍 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n\n\n".format(fufu[0],b1[0],b2[0],b3[0],b4[0],b5[0],bg[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0],gb1[0])
+        f = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5].replace("六","　"),bg[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
+        g = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4].replace("五","　"),bg[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
+        h = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],b5[3].replace("四","　"),bg[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
+        i = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],b5[2].replace("三","　"),bg[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
+        j = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],b5[1].replace("二","　"),bg[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
+        k = "　{} 　　{}　　 {} {}{}{} {}{}　　　　　　　{}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],b5[0].replace("初","　"),bg[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
         l = "【大衍筮法】\n"
+        
         try:
             m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
         except IndexError:
@@ -554,6 +556,7 @@ class Iching():
         god_dist2 = {"兄":"，忌神持應，不利","父":"，仇神持應，不利","妻":"，用神持應，有利", "子":"，原神持應，費心", "官":"，泄神持應，有利"}  
         s_dist2 = god_dist1.get(shi[0])
         y_dist2 = god_dist2.get(ying[0])
+
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
             yk_dist = "，應爻客隊遇旬空，不利"
         else:
@@ -593,7 +596,6 @@ class Iching():
             else:
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{}".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist)
         return a+b+c+c1+d+e+f+g+h+i+j+k+l+m+n+o
-    
     
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,27,15,30))
