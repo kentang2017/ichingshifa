@@ -499,7 +499,6 @@ class Iching():
         build_month = self.find_lunar_month(gz[0]).get(lunar_month)
         dong_yaos = [i.replace("7", "").replace("8", "").replace("6", "動").replace("9", "動") for i in list(ogua)]
         qin_elements = dict(zip(b2, [b2[i]+b4[i]+dong_yaos[i] for i in range(0,6)]))
-        
         by = {
             0:["身","　","　","　","　","　"],
             1:["　","身","　","　","　","　"],
@@ -536,10 +535,9 @@ class Iching():
             fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             fufu2 = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             flyfu_dist = ""
-        
         daykong = self.daykong_shikong(year, month, day, hour, minute).get("日空")
         hourkong = self.daykong_shikong(year, month, day, hour, minute).get("時空")
-        twelvelucks =  "".join([self.find_shier_luck(gz[0][0]).get(i)+"　" for i in self.dizhi])
+        twelvelucks =  "".join([self.find_shier_luck(gz[2][0]).get(i)+"　" for i in self.dizhi])
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
