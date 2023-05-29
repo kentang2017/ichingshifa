@@ -25,7 +25,7 @@ def get_file_content_as_string(path):
     return response.read().decode("utf-8")
 
 st.set_page_config(layout="wide",page_title="堅六爻")
-pan,update = st.tabs([' 排盤 ', ' 日誌 ' ])
+pan,update,text = st.tabs([' 排盤 ', ' 日誌 ', ' 占訣 '])
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
     pp_time=st.time_input("時間",pdlm.now(tz='Asia/Shanghai').time())
@@ -41,6 +41,10 @@ with update:
     st.header('日誌')
     st.markdown(get_file_content_as_string("update.md"))
   
+with text:
+    st.header('占訣')
+    st.markdown(get_file_content_as_string("text.md"))
+
 with pan:
     st.header('堅六爻')
     pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
