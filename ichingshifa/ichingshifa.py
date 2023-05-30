@@ -565,7 +565,7 @@ class Iching():
             father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"主隊軍師老髦也，守舊保守也。",
                  ("長生","沐浴","冠帶","臨官","帝旺"):"主隊軍師少壯也，開明進取也。",
                  ("胎　","養　"):"主隊軍師不威重也，欠謀略。"},  twelvelucks_hour.get(b3[b2.index("父")][1]))
-        except IndexError:
+        except (ValueError,IndexError):
             father_luck = ""
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
