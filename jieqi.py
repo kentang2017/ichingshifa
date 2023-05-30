@@ -60,7 +60,7 @@ def find_jq_date(year, month, day, hour, jie_qi):
 def gong_wangzhuai(j_q):
     wangzhuai = list("旺相胎沒死囚休廢")
     #wangzhuai_num = [3,4,9,2,7,6,1,8]
-    wangzhuai_num = list("艮震巽離坤兌乾坎")
+    wangzhuai_num = list("震巽離坤兌乾坎艮")
     wangzhuai_jieqi = {('春分','清明','穀雨'):'春分',
                         ('立夏','小滿','芒種'):'立夏',
                         ('夏至','小暑','大暑'):'夏至',
