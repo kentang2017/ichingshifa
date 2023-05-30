@@ -562,9 +562,9 @@ class Iching():
         twelvelucks_hour = self.find_shier_luck(gz[3][0])
         twelvelucks_hour1 = "".join([self.find_shier_luck(gz[3][0]).get(i)+"　" for i in self.dizhi])
         try:
-            father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"主隊軍師老髦也，守舊保守也。",
-                 ("長生","沐浴","冠帶","臨官","帝旺"):"主隊軍師少壯也，開明進取也。",
-                 ("胎　","養　"):"主隊軍師不威重也，欠謀略。"},  twelvelucks_hour.get(b3[b2.index("父")][1]))
+            father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"【父母】爻處衰絕，主隊軍師老髦也，守舊保守也。",
+                 ("長生","沐浴","冠帶","臨官","帝旺"):"【父母】爻處旺相，主隊軍師少壯也，開明進取也。",
+                 ("胎　","養　"):"【父母】爻處胎、養，主隊軍師不威重也，欠謀略。"},  twelvelucks_hour.get(b3[b2.index("父")][1]))
         except (ValueError,IndexError):
             father_luck = ""
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
