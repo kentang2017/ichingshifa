@@ -494,11 +494,11 @@ class Iching():
         g4 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('五行')
         g5 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('世應爻')
         try:
-            gua_no_yao = {  "父":"，卦無【父母】，乃幟不備也。",
-                            "妻":"，卦無【妻財】，糧草缺絕也。",
-                            "官":"，卦無【官鬼】，如與鬼墓絕胎者，敵必遁去也。",
-                            "子":"，卦無【子孫】，動來救",
-                            "兄":"，卦無【兄弟】，防奸細也。"}.get(list(set(list("官父妻兄子"))- set(b2))[0])
+            gua_no_yao = {  "父":"卦無【父母】，乃幟不備也。",
+                            "妻":"卦無【妻財】，糧草缺絕也。",
+                            "官":"卦無【官鬼】，如與鬼墓絕胎者，敵必遁去也。",
+                            "子":"卦無【子孫】，動來救",
+                            "兄":"卦無【兄弟】，防奸細也。"}.get(list(set(list("官父妻兄子"))- set(b2))[0])
         except IndexError:
             gua_no_yao = ""
         guayaodict = {"6":"▅▅ ▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅ ▅▅  ", "9":"▅▅▅▅▅ O"}
@@ -561,6 +561,7 @@ class Iching():
         gettwelve = self.find_shier_luck(gz[2][0])
         twelvelucks =  "".join([self.find_shier_luck(gz[2][0]).get(i)+"　" for i in self.dizhi])
         twelvelucks_hour = self.find_shier_luck(gz[3][0])
+        twelvelucks_hour1 = "".join([self.find_shier_luck(gz[3][0]).get(i)+"　" for i in self.dizhi])
         try:
             father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"主隊軍師老髦也，守舊保守也。",
                  ("長生","沐浴","冠帶","臨官","帝旺"):"主隊軍師少壯也，開明進取也。",
@@ -573,18 +574,19 @@ class Iching():
         j_q = jq(year, month, day, hour)
         c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
         c1 = "旬空︰　　　  　　　  {}    {}\n".format(daykong, hourkong)
-        c2 = "月建︰　　　  {}\n".format(build_month)
-        c3 = "日干支長生十二運︰"+ "".join([i+"　　" for i in self.dizhi]) +"\n"
-        c4 = "　　　　　　　　　"+"".join([self.Ganzhiwuxing(i)+"　　" for i in self.dizhi] )+"\n"
-        c5 = "　　　　　　　　　"+ twelvelucks+"\n\n"
+        c2 = "月建︰　　　  {}\n\n".format(build_month)
+        c3 = "　　　　"+ "".join([i+"　　" for i in self.dizhi]) +"\n"
+        c4 = "　　　　"+"".join([self.Ganzhiwuxing(i)+"　　" for i in self.dizhi] )+"\n"
+        c5 = "日支運︰"+ twelvelucks+"\n"
+        c5_1 = "時支運︰"+ twelvelucks_hour1+"\n\n"
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　    之卦\n"
-        f = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5].replace("六","　"),bg[5],by[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
-        g = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4].replace("五","　"),bg[4],by[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
-        h = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],b5[3].replace("四","　"),bg[3],by[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
-        i = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],b5[2].replace("三","　"),bg[2],by[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
-        j = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],b5[1].replace("二","　"),bg[1],by[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
-        k = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],b5[0].replace("初","　"),bg[0],by[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
+        f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"),bg[5],by[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
+        g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"),bg[4],by[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
+        h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"),bg[3],by[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
+        i = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],twelvelucks_hour.get(b3[2][1]),b5[2].replace("三","　"),bg[2],by[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
+        j = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],twelvelucks_hour.get(b3[1][1]),b5[1].replace("二","　"),bg[1],by[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
+        k = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],twelvelucks_hour.get(b3[0][1]),b5[0].replace("初","　"),bg[0],by[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
         l = "【大衍筮法】\n"
         
         try:
@@ -614,11 +616,11 @@ class Iching():
         shi_yy = {"陽":"世陽而動者，宜出師。", "陰":"世陰而靜者，宜堅壁也。"}.get(self.multi_key_dict_get(yingyang, shi[1]))
         down_vs_up = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+upgua[1])
         shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
-        shi_vs_ying2 =  {"我尅":"世尅應爻，我軍必勝。",
-                        "尅我":"應尅世爻，我軍必敗。",
-                        "比和":"世應比和，勢軍力敵。",
-                        "我生":"世生應爻，我軍不利。",
-                        "生我":"應生世爻，彼軍不利。",
+        shi_vs_ying2 =  {"我尅":"世尅應爻，我軍必勝",
+                        "尅我":"應尅世爻，我軍必敗",
+                        "比和":"世應比和，勢軍力敵",
+                        "我生":"世生應爻，我軍不利",
+                        "生我":"應生世爻，彼軍不利",
                         }.get(shi_vs_ying)
         sy_monster = {"龍":"臨【青龍】，良將也。",
 			   "虎":"臨【白虎】，猛將也。",
@@ -637,11 +639,11 @@ class Iching():
         god_dist2 = {"兄":"，忌神持應，不利","父":"，仇神持應，不利","妻":"，用神持應，有利", "子":"，原神持應，費心", "官":"，泄神持應，有利"}  
         s_dist2 = god_dist1.get(shi[0])
         y_dist2 = god_dist2.get(ying[0])
-        s_dist3 = {"父":"父母持世，大敗之兆。",
-        		  "妻":"妻財持世，如旺相，如獨發便嬴。",
-        		  "官":"官鬼持世。皆敗，乃彼我不得地，世旺克應，我勝；應旺克也，彼勝。",
-        		  "兄":"兄弟持世，主有奸人在軍中，世下伏鬼亦然。",
-        		  "子":"子孫持世，如旺相，或獨發便贏，若鬼兄財爻動便輸。"}.get(shi[0])
+        s_dist3 = {"父":"父母持世，大敗之兆",
+        		  "妻":"妻財持世，如旺相，如獨發便嬴",
+        		  "官":"官鬼持世。皆敗，乃彼我不得地，世旺克應，我勝；應旺克也，彼勝",
+        		  "兄":"兄弟持世，主有奸人在軍中，世下伏鬼亦然",
+        		  "子":"子孫持世，如旺相，或獨發便贏，若鬼兄財爻動便輸"}.get(shi[0])
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
             yk_dist = "，應爻客隊遇旬空，不利"
         else:
@@ -656,9 +658,9 @@ class Iching():
             yguan = ""
         if dongyao == "0":
             if  flyfu_dist == "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}，主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{} \n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
             if  flyfu_dist != "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}，主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{} \n5.{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao, flyfu_dist,father_lay_dist)
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{} \n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{} \n5.{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao, flyfu_dist,father_lay_dist)
         if dongyao == "1":
             try:
                 num = int(ogua.index("9")) 
@@ -690,11 +692,12 @@ class Iching():
                 vs2 = ""
                 vs3 = ""
             if  flyfu_dist == "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}，主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}。\n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist,dong_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}。\n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist,dong_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
             if  flyfu_dist != "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}，主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}{} \n7.{} \n8.{} \n9.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist,father_lay_dist, dong_dist,gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
-        return a+b+c0+c+c1+c2+c3+c4+c5+d+e+f+g+h+i+j+k+l+m+n+o
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}{} \n7.{} \n8.{} \n9.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist,father_lay_dist, dong_dist,gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
+        return a+b+c0+c+c1+c2+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     #qin_elements
+    #
     
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,30,8,30))
