@@ -14,7 +14,6 @@
 
 **"Shi"(筮)** or so-called Stalk divination, one of the oldest IChing divination method in the Chinese society, in which the ancient Chinese used 50 sticks of yarrow stalks to do divination or prediction. According to Zhouyi 周易, the number of "Da Yan" (大衍) is 50 while 1 is taken away and 49 sticks of yarrow stalks were used in divination. 49 stalks were seperated into 2 bunches respectively held by both left hand and right hand, and then one stick would be extracted from the right hand, the bunch of stalks held by right hand was divided by four, until the remainder comes, that is called the change (or 'bian'), repeating thrice. The whole process of this divination includes getting 18 random numbers. The value of Line may come after  "Three Changes", that is  (49 stalks - first change - second change - third change) divided by 4, it will be either **6(old yin 老陰)**, **7(young yang 少陽)**, **8(young yin 少陰)**, or **9(old yang 老陽)**.  The BenGua (本卦) is formed when the value of Line is formed from the bottom to the top. If the line with value of either 6 or 9, meaning that line must have a change, like 6(old yin) change to 7(young yang), and 9 (old yang) change to 8 (old yin). Each of the lines has its own meaning or explantion. BianGua (變卦) or ZhiGua (之卦) is also formed after BenGua with value 6 or 9 has been changed. 
 
-
 ## **1. 大衍之數、太一、分二、掛一、揲四、歸奇 The number of DaYan**︰
 
 ```python
@@ -130,5 +129,8 @@ print(Iching().display_pan(2023,5,27,16,0))
 
 ```
 ## **6. 軟件 Application**
+A streamlit application Kinliuyao (堅六爻) is launched.
+堅六爻排盤 https://iching.streamlitapp.com (欲窮千里目，麻煩國內朋友擔條梯子看。)
+
 A mobile app of Ichingshifa written in Kivy
 https://github.com/kentang2017/iching_shifa/blob/master/kinshifa-0.2-release.apk
