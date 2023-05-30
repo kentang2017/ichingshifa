@@ -487,7 +487,7 @@ class Iching():
         g3 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('納甲')
         g4 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('五行')
         g5 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('世應爻')
-        guayaodict = {"6":"▅▅ ▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅ ▅▅  ", "9":"▅▅▅▅▅ O"}
+        guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
@@ -497,12 +497,13 @@ class Iching():
         build_month = self.find_lunar_month(gz[0]).get(lunar_month)
         dong_yaos = [i.replace("7", "").replace("8", "").replace("6", "動").replace("9", "動") for i in list(ogua)]
         qin_elements = dict(zip(b2, [b2[i]+b4[i]+dong_yaos[i] for i in range(0,6)]))
+        
         by = {
             0:["身","　","　","　","　","　"],
             1:["　","身","　","　","　","　"],
             2:["　","　","身","　","　","　"],
             3:["　","　","　","身","　","　"],
-            4:["　","　","　","　","身","　"],
+            4:["","　","　","　","身","　"],
             5:["　","　","　","　","　","身"],
             }.get([b2[i]+b3[i] for i in range(0,6)].index(bengua.get('身爻')[0:3]))
         try:
@@ -533,6 +534,7 @@ class Iching():
             fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             fufu2 = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             flyfu_dist = ""
+        
         daykong = self.daykong_shikong(year, month, day, hour, minute).get("日空")
         hourkong = self.daykong_shikong(year, month, day, hour, minute).get("時空")
         gettwelve = self.find_shier_luck(gz[2][0])
@@ -540,13 +542,15 @@ class Iching():
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
+        j_q = jq(year, month, day, hour)
+        c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
         c1 = "旬空︰　　　  　　　  {}    {}\n".format(daykong, hourkong)
         c2 = "月建︰{}\n".format(build_month)
         c3 = "日干支長生十二運︰"+ "".join([i+"　　" for i in self.dizhi]) +"\n"
         c4 = "　　　　　　　　　"+"".join([self.Ganzhiwuxing(i)+"　　" for i in self.dizhi] )+"\n"
         c5 = "　　　　　　　　　"+ twelvelucks+"\n\n"
-        d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　{}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
-        e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　  之卦\n"
+        d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
+        e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　    之卦\n"
         f = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],b5[5].replace("六","　"),bg[5],by[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
         g = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],b5[4].replace("五","　"),bg[4],by[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
         h = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],b5[3].replace("四","　"),bg[3],by[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
@@ -554,6 +558,7 @@ class Iching():
         j = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],b5[1].replace("二","　"),bg[1],by[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
         k = "　{} 　　{}　　 {} {}{}{} {}{} {}            {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],b5[0].replace("初","　"),bg[0],by[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
         l = "【大衍筮法】\n"
+        
         try:
             m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
         except IndexError:
@@ -575,6 +580,7 @@ class Iching():
         god_dist2 = {"兄":"，忌神持應，不利","父":"，仇神持應，不利","妻":"，用神持應，有利", "子":"，原神持應，費心", "官":"，泄神持應，有利"}  
         s_dist2 = god_dist1.get(shi[0])
         y_dist2 = god_dist2.get(ying[0])
+
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
             yk_dist = "，應爻客隊遇旬空，不利"
         else:
@@ -613,8 +619,7 @@ class Iching():
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
             if  flyfu_dist != "":
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{} \n7.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
-        return a+b+c+c1+c2+c3+c4+c5+d+e+f+g+h+i+j+k+l+m+n+o
-    #qin_elements
+        return a+b+c+c0+c1+c2+c3+c4+c5+d+e+f+g+h+i+j+k+l+m+n+o
     #qin_elements
     #
     
