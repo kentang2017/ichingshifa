@@ -57,9 +57,10 @@ def find_jq_date(year, month, day, hour, jie_qi):
         dzlist.append(bb_1)
     return list(dzlist[list(map(lambda i:list(i.keys())[0], dzlist)).index(jie_qi)].values())[0]
 
-def gong_wangzhuai():
+def gong_wangzhuai(j_q):
     wangzhuai = list("旺相胎沒死囚休廢")
-    wangzhuai_num = [3,4,9,2,7,6,1,8]
+    #wangzhuai_num = [3,4,9,2,7,6,1,8]
+    wangzhuai_num = list("艮震巽離坤兌乾坎")
     wangzhuai_jieqi = {('春分','清明','穀雨'):'春分',
                         ('立夏','小滿','芒種'):'立夏',
                         ('夏至','小暑','大暑'):'夏至',
@@ -68,7 +69,7 @@ def gong_wangzhuai():
                         ('立冬','小雪','大雪'):'立冬',
                         ('冬至','小寒','大寒'):'冬至',
                         ('立春','雨水','驚蟄'):'立春'}
-    return dict(zip(new_list(wangzhuai_num, dict(zip(jieqi_name[0::3],wangzhuai_num )).get(multi_key_dict_get(wangzhuai_jieqi, "霜降"))), wangzhuai))
+    return dict(zip(new_list(wangzhuai_num, dict(zip(jieqi_name[0::3],wangzhuai_num )).get(multi_key_dict_get(wangzhuai_jieqi, j_q))), wangzhuai))
 
 def xzdistance(year, month, day, hour):
     return int(find_jq_date(year, month, day, hour, "夏至") -  Date("{}/{}/{} {}:00:00.00".format(str(year).zfill(4), str(month).zfill(2), str(day).zfill(2), str(hour).zfill(2))))
