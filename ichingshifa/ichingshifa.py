@@ -476,6 +476,7 @@ class Iching():
         now = datetime.datetime.now()
         return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
     
+
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')
@@ -532,9 +533,9 @@ class Iching():
             if flyfu_relation == "比和":
                 ff_relation = "比和】。"
             if flyfu_relation == "生我":
-                ff_relation = flyfu_relation + "生我】。"
+                ff_relation = flyfu_relation + "】。"
             if flyfu_relation == "我生":
-                ff_relation = flyfu_relation + "我生】。"
+                ff_relation = flyfu_relation + "】。"
             flyfu_dist = "伏神爻【"+fyao1+"】，飛神【"+flygodyao+"】在【"+flylocation+"】，伏神【"+fugodyao+"】，飛伏關係為【"+ff_relation
         except AttributeError:
             fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
@@ -588,9 +589,16 @@ class Iching():
             s_vs_y_dist = "世應皆旺，必不交鋒，戰亦勝負難決也。"
         else:
             s_vs_y_dist = "世應皆不旺，戰亦勝負難決也。"
-    
+        shi_yy = {"陽":"世陽而動者，宜出師。", "陰":"世陰而靜者，宜堅壁也。"}.get(self.multi_key_dict_get(yingyang, shi[1]))
         down_vs_up = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+upgua[1])
         shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
+        shi_vs_ying2 =  {"我尅":"世尅應爻，我軍必勝。",
+                        "尅我":"應尅世爻，我軍必敗。",
+                        "比和":"世應比和，勢軍力敵。",
+                        "我生":"世生應爻，我軍不利。",
+                        "生我":"應生世爻，彼軍不利。",
+                        }.get(shi_vs_ying)
+
         dongyao = oo[4][0][4]
         if shi[2] == daykong[0] or shi[2] == daykong[1] or shi[2] == hourkong[1] or shi[2] == hourkong[0]:
             sk_dist = "，世爻主隊遇旬空，不利"
@@ -600,7 +608,11 @@ class Iching():
         god_dist2 = {"兄":"，忌神持應，不利","父":"，仇神持應，不利","妻":"，用神持應，有利", "子":"，原神持應，費心", "官":"，泄神持應，有利"}  
         s_dist2 = god_dist1.get(shi[0])
         y_dist2 = god_dist2.get(ying[0])
-
+        s_dist3 = {"父":"父母持世，大敗之兆。",
+        		  "妻":"妻財持世，如旺相，如獨發便嬴。",
+        		  "官":"官鬼持世。皆敗，乃彼我不得地，世旺克應，我勝；應旺克也，彼勝。",
+        		  "兄":"兄弟持世，主有奸人在軍中，世下伏鬼亦然。",
+        		  "子":"子孫持世，如旺相，或獨發便贏，若鬼兄財爻動便輸。"}.get(shi[0])
         if ying[2] == daykong[0] or ying[2] == daykong[1] or ying[2] == hourkong[1] or ying[2] == hourkong[0]:
             yk_dist = "，應爻客隊遇旬空，不利"
         else:
@@ -614,8 +626,12 @@ class Iching():
         else:
             yguan = ""
         
+        
         if dongyao == "0":
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
+            if  flyfu_dist == "":
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻，{}世爻為【{}】{}{}{}；{}客隊應爻為【{}】{}{}{}，主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
+            if  flyfu_dist != "":
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻，{}世爻為【{}】{}{}{}；{}客隊應爻為【{}】{}{}{}，主客關係為【{}】，{}。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{} \n4.{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,shi_vs_ying2, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, flyfu_dist)
         if dongyao == "1":
             try:
                 num = int(ogua.index("9")) 
@@ -627,6 +643,12 @@ class Iching():
                 dd_dist = "動爻與日辰地支沒有刑克"
             if self.multi_key_dict_get(yingke, gz[2][1]+dong[2]) =="刑" or self.multi_key_dict_get(yingke, gz[3][1]+dong[2]) =="刑":
                 dd_dist = "動爻與日辰地支刑克"
+            dong_dist = {"父":"【父母】爻發動，乃大敗之兆。",
+			"官":"【官鬼】爻發動，我軍不嬴。",
+			"子":"【子孫】爻發動，我軍勝。",
+			"妻":"【妻財】爻發動，我軍不利。",
+			"兄":"【兄弟】爻發動，凶，我軍輸。"}.get(dong[0])
+            
             dong2 = self.multi_key_dict_get({(0,1,2):"動爻在下卦，即客隊，", (3,4,5):"動爻在上卦，即主隊，"},num)
             if dong2[3] == "下":
                 bian = eightgua.get(gb[0:3])
@@ -641,11 +663,10 @@ class Iching():
                 vs2 = ""
                 vs3 = ""
             if  flyfu_dist == "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6 {}。\n7.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻，{}世爻為【{}】{}{}{}；{}客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}。\n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist,dong_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
             if  flyfu_dist != "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n7.{} \n6.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻，{}世爻為【{}】{}{}{}；{}客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{} \n7.{} \n8.{} \n9.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist, dong_dist,gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
         return a+b+c0+c+c1+c2+c3+c4+c5+d+e+f+g+h+i+j+k+l+m+n+o
-    
     #qin_elements
     #
     #
