@@ -5,7 +5,7 @@ import numpy as np
 from sxtwl import fromSolar
 import cn2an
 from cn2an import an2cn
-from jieqi import *
+import jieqi
 
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
@@ -500,7 +500,6 @@ class Iching():
         build_month = self.find_lunar_month(gz[0]).get(lunar_month)
         dong_yaos = [i.replace("7", "").replace("8", "").replace("6", "動").replace("9", "動") for i in list(ogua)]
         qin_elements = dict(zip(b2, [b2[i]+b4[i]+dong_yaos[i] for i in range(0,6)]))
-        
         by = {
             0:["身","　","　","　","　","　"],
             1:["　","身","　","　","　","　"],
@@ -537,7 +536,6 @@ class Iching():
             fufu = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             fufu2 = ["　　　　","　　　　","　　　　","　　　　","　　　　","　　　　"]
             flyfu_dist = ""
-        
         daykong = self.daykong_shikong(year, month, day, hour, minute).get("日空")
         hourkong = self.daykong_shikong(year, month, day, hour, minute).get("時空")
         gettwelve = self.find_shier_luck(gz[2][0])
@@ -545,8 +543,8 @@ class Iching():
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
         b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
-        j_q = jq(year, month, day, hour)
-        c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
+        j_q = jieqi.jq(year, month, day, hour)
+        c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, jieqi.gong_wangzhuai(j_q)[1].get("旺"), jieqi.gong_wangzhuai(j_q)[1].get("相"))
         c1 = "旬空︰　　　  　　　  {}    {}\n".format(daykong, hourkong)
         c2 = "月建︰{}\n".format(build_month)
         c3 = "日干支長生十二運︰"+ "".join([i+"　　" for i in self.dizhi]) +"\n"
