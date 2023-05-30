@@ -490,7 +490,7 @@ class Iching():
         g3 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('納甲')
         g4 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('五行')
         g5 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('世應爻')
-        guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
+        guayaodict = {"6":"▅▅ ▅▅ X", "7":"▅▅▅▅  ", "8":"▅▅ ▅▅  ", "9":"▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
