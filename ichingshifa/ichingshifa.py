@@ -8,7 +8,7 @@ from cn2an import an2cn
 from ichingshifa.jieqi import *
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
-
+yingyang =  {tuple(list("甲丙戊庚壬")):"陽",tuple(list("乙丁己辛癸")):"陰" }
 zhiying = dict(zip("寅巳申丑戌未子卯辰亥酉午","巳申寅戌未丑卯子辰亥酉午"))
 ying_chong = dict(zip(list(map(lambda x: tuple(x), "寅巳申丑戌未子卯,午辰酉亥".split(","))),"刑,自刑".split(","))) 
 yingke = {('寅巳', '巳申', '申寅', '丑戌', '戌未', '未丑', '子卯', '卯子', '辰辰', '亥亥', '酉酉', '午午'):"刑"}
