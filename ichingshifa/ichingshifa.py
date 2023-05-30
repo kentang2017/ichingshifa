@@ -497,7 +497,7 @@ class Iching():
             gua_no_yao = {  "父":"卦無【父母】，乃幟不備也。",
                             "妻":"卦無【妻財】，糧草缺絕也。",
                             "官":"卦無【官鬼】，如與鬼墓絕胎者，敵必遁去也。",
-                            "子":"卦無【子孫】，動來救",
+                            "子":"卦無【子孫】，動來救。",
                             "兄":"卦無【兄弟】，防奸細也。"}.get(list(set(list("官父妻兄子"))- set(b2))[0])
         except IndexError:
             gua_no_yao = ""
@@ -512,7 +512,6 @@ class Iching():
         build_month = self.find_lunar_month(gz[0]).get(lunar_month)
         dong_yaos = [i.replace("7", "").replace("8", "").replace("6", "動").replace("9", "動") for i in list(ogua)]
         qin_elements = dict(zip(b2, [b2[i]+b4[i]+dong_yaos[i] for i in range(0,6)]))
-
         by = {
             0:["身","　","　","　","　","　"],
             1:["　","身","　","　","　","　"],
@@ -698,6 +697,7 @@ class Iching():
         return a+b+c0+c+c1+c2+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     #qin_elements
     #
+    
     
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,30,8,30))
