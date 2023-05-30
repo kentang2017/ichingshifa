@@ -6,9 +6,12 @@ from sxtwl import fromSolar
 import cn2an
 from cn2an import an2cn
 from ichingshifa.jieqi import *
-
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
+
+zhiying = dict(zip("寅巳申丑戌未子卯辰亥酉午","巳申寅戌未丑卯子辰亥酉午"))
+ying_chong = dict(zip(list(map(lambda x: tuple(x), "寅巳申丑戌未子卯,午辰酉亥".split(","))),"刑,自刑".split(","))) 
+yingke = {('寅巳', '巳申', '申寅', '丑戌', '戌未', '未丑', '子卯', '卯子', '辰辰', '亥亥', '酉酉', '午午'):"刑"}
 
 class Iching():
     #64卦、4096種卦爻組合資料庫，爻由底(左)至上(右)起
@@ -47,7 +50,7 @@ class Iching():
         return {0:"戊", 10:"己", 8:"庚", 6:"辛", 4:"壬", 2:"癸"}.get(shun_value)
     
     def find_shier_luck(self, gan):
-        return {**dict(zip(self.tiangan[0::2], list(map(lambda y: dict(zip(y, re.findall('..',"長生沐浴冠帶臨冠帝旺衰　病　死　墓　絕　胎　養　") )),list(map(lambda i:self.new_list(self.dizhi, i),list("亥寅寅巳申"))))))), **dict(zip(self.tiangan[1::2], [dict(zip(y,  re.findall('..',"死　病　衰　帝旺臨冠冠帶沐浴長生養　胎　絕　墓　"))) for y in list(map(lambda i:self.new_list(self.dizhi, i), list("亥寅寅巳申")))]))}.get(gan)
+        return {**dict(zip(self.tiangan[0::2], list(map(lambda y: dict(zip(y, re.findall('..',"長生沐浴冠帶臨官帝旺衰　病　死　墓　絕　胎　養　") )),list(map(lambda i:self.new_list(self.dizhi, i),list("亥寅寅巳申"))))))), **dict(zip(self.tiangan[1::2], [dict(zip(y,  re.findall('..',"死　病　衰　帝旺臨官冠帶沐浴長生養　胎　絕　墓　"))) for y in list(map(lambda i:self.new_list(self.dizhi, i), list("亥寅寅巳申")))]))}.get(gan)
 
     #日空時空    
     def daykong_shikong(self, year, month, day, hour, minute):
@@ -491,6 +494,7 @@ class Iching():
         g4 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('五行')
         g5 = self.qigua_time(year, month, day, hour, minute).get("之卦").get('世應爻')
         guayaodict = {"6":"▅▅ ▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅ ▅▅  ", "9":"▅▅▅▅▅ O"}
+        #guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
@@ -546,7 +550,7 @@ class Iching():
         j_q = jq(year, month, day, hour)
         c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
         c1 = "旬空︰　　　  　　　  {}    {}\n".format(daykong, hourkong)
-        c2 = "月建︰{}\n".format(build_month)
+        c2 = "月建︰　　　  {}\n".format(build_month)
         c3 = "日干支長生十二運︰"+ "".join([i+"　　" for i in self.dizhi]) +"\n"
         c4 = "　　　　　　　　　"+"".join([self.Ganzhiwuxing(i)+"　　" for i in self.dizhi] )+"\n"
         c5 = "　　　　　　　　　"+ twelvelucks+"\n\n"
@@ -568,8 +572,23 @@ class Iching():
         eightgua = { '777':"乾金",  '778':"兌金",  '787':"離火",  '788':"震木",  '877':"巽木", '878':"坎水",  '887':"艮土",  '888':"坤土"}
         downgua = eightgua.get(ogua[0:3].replace("6","8").replace("9","7"))
         upgua = eightgua.get(ogua[3:6].replace("6","8").replace("9","7"))
+        status = {("旺","相"):"，吉也",("胎","沒"):"，平也",("死","囚","休","廢"):"，凶也"} 
+        downgua1 =  "【"+gong_wangzhuai(j_q)[0].get(downgua[0])+"】" + self.multi_key_dict_get(status, gong_wangzhuai(j_q)[0].get(downgua[0]) )
+        upgua1 = "【"+gong_wangzhuai(j_q)[0].get(upgua[0])+"】" + self.multi_key_dict_get(status, gong_wangzhuai(j_q)[0].get(upgua[0]) )
         shi =  bg_yaolist[["世" in i  for i in bg_yaolist].index(True)]
         ying = bg_yaolist[["應" in i  for i in bg_yaolist].index(True)]
+        hour_status = self.find_shier_luck(gz[3][0])
+        shi_luck = hour_status.get(shi[2])
+        ying_luck = hour_status.get(ying[2])
+        if shi_luck == "帝旺" or shi_luck == "臨官" and ying_luck != "帝旺" or ying_luck != "臨官":
+            s_vs_y_dist = "世旺應衰者，我強彼弱，宜攻也。"
+        if ying_luck == "帝旺" or ying_luck == "臨官" and shi_luck != "帝旺" or shi_luck != "臨官" :
+            s_vs_y_dist = "世衰應旺者，我弱彼強，宜守也。"
+        if shi_luck == "帝旺" or shi_luck == "臨官" and ying_luck == "帝旺" or ying_luck == "臨官" :
+            s_vs_y_dist = "世應皆旺，必不交鋒，戰亦勝負難決也。"
+        else:
+            s_vs_y_dist = "世應皆不旺，戰亦勝負難決也。"
+    
         down_vs_up = self.multi_key_dict_get(wuxing_relation_2,  downgua[1]+upgua[1])
         shi_vs_ying = self.find_wx_relation(shi[2], ying[2])
         dongyao = oo[4][0][4]
@@ -594,8 +613,9 @@ class Iching():
             yguan = "，應見官鬼爻，皆敗"
         else:
             yguan = ""
+        
         if dongyao == "0":
-            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
+            o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。 \n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。\n3.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
         if dongyao == "1":
             try:
                 num = int(ogua.index("9")) 
@@ -603,6 +623,10 @@ class Iching():
             except ValueError:
                 num = int(ogua.index("6")) 
                 dong = bg_yaolist[int(ogua.index("6"))]
+            if self.multi_key_dict_get(yingke, gz[2][1]+dong[2]) is None and  self.multi_key_dict_get(yingke, gz[3][1]+dong[2]) is None:
+                dd_dist = "動爻與日辰地支沒有刑克"
+            if self.multi_key_dict_get(yingke, gz[2][1]+dong[2]) =="刑" or self.multi_key_dict_get(yingke, gz[3][1]+dong[2]) =="刑":
+                dd_dist = "動爻與日辰地支刑克"
             dong2 = self.multi_key_dict_get({(0,1,2):"動爻在下卦，即客隊，", (3,4,5):"動爻在上卦，即主隊，"},num)
             if dong2[3] == "下":
                 bian = eightgua.get(gb[0:3])
@@ -617,14 +641,15 @@ class Iching():
                 vs2 = ""
                 vs3 = ""
             if  flyfu_dist == "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6 {}。\n7.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}。".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
             if  flyfu_dist != "":
-                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】 \n6.{} \n7.日干下主隊世爻臨【{}】，客隊應爻臨【{}】。".format(downgua,upgua, down_vs_up,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,flyfu_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]))
+                o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。\n2.主隊世爻為【{}】{}{}{}，客隊應爻為【{}】{}{}{}，主客關係為【{}】。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n7.{} \n6.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}。".format(downgua,upgua, down_vs_up,downgua1,upgua1,shi[0:4],sk_dist,sguan,s_dist2,ying[0:4],yk_dist,yguan,y_dist2,shi_vs_ying,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist)
         return a+b+c0+c+c1+c2+c3+c4+c5+d+e+f+g+h+i+j+k+l+m+n+o
+    
     #qin_elements
     #
     
 if __name__ == '__main__':
-    print(Iching().display_pan(2023,5,30,12,0))
+    print(Iching().display_pan(2023,5,30,8,30))
     #print(Iching().display_pan(2023,5,29,15,30))
     #print(Iching().qigua_time(2023,5,28,13,30))
