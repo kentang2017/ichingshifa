@@ -424,6 +424,7 @@ class Iching():
                 "建月":build_month, 
                 "積算":[list(i) for i in np.array_split(accumulate, 10)]}
     
+    
     def decode_two_gua(self, bengua, ggua, daygangzhi):
         a = self.decode_gua(bengua, daygangzhi)
         b = self.decode_gua(ggua, daygangzhi)
@@ -437,8 +438,9 @@ class Iching():
                 fei = ""
         except (ValueError, IndexError ,AttributeError):
             fei = ""
+        
         return {"本卦":a, "之卦":b, "飛神":fei}
-    
+
     def qigua_time(self, y, m, d, h, minute):
         gangzhi = self.gangzhi(y,m,d,h, minute)
         ld = self.lunar_date_d(y,m,d)
@@ -470,7 +472,7 @@ class Iching():
     def qigua_now(self):
         now = datetime.datetime.now()
         return self.qigua_time(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
-
+    
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_time(year, month, day, hour, minute).get('大衍筮法')
@@ -625,5 +627,6 @@ class Iching():
     #
     
 if __name__ == '__main__':
-    print(Iching().display_pan(2023,5,29,18,30))
+    print(Iching().display_pan(2023,5,30,12,0))
+    #print(Iching().display_pan(2023,5,29,15,30))
     #print(Iching().qigua_time(2023,5,28,13,30))
