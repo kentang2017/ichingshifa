@@ -6,6 +6,8 @@ from sxtwl import fromSolar
 import cn2an
 from cn2an import an2cn
 from ichingshifa.jieqi import *
+
+
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
 yingyang =  {tuple(list("甲丙戊庚壬")):"陽",tuple(list("乙丁己辛癸")):"陰" }
@@ -72,6 +74,40 @@ class Iching():
         new_chin_list = self.new_list(olist, chin)
         return itertools.cycle(new_chin_list)
     
+    def upper_lowergua_code(self, gua1, gua2):
+        gua_dict = dict(zip(list("乾兌離震巽坎艮坤"),[126,132,138,144,150,156,162,168]))
+        return gua_dict.get(gua1) + gua_dict.get(gua2)
+    
+    def four_gz_code(self, ygz, mgz,dgz, hgz):
+        jiazi_code = dict(zip(self.jiazi(),[112,190,34,56,75,91,107,217,249,190,248,303,35,61,107,116,94,136,112,293,228,177,135,122,62,49,129,120,202,91,119,177,131,86,225,169,83,105,158,249,109,98,57,187,222,95,266,135,105,183,137,228,98,83,70,171,99,101,249,296]))
+        return jiazi_code.get(ygz) + jiazi_code.get(mgz) + jiazi_code.get(dgz) + jiazi_code.get(hgz) 
+    
+    def count_yy(self, ygz, mgz, dgz,hgz):
+        fourgz = [ygz[1],mgz[1],dgz[1],hgz[1]]
+        zhi_count = {tuple(list("子,寅,辰,未,酉,亥")):"老", tuple(list("午,申,戌,丑,卯,巳")):"少"}
+        countfour = [self.multi_key_dict_get(zhi_count, i) for i in fourgz]
+        if countfour.count("老") > countfour.count("少"):
+            result = 720
+        if countfour.count("少") > countfour.count("老"):
+            result = 360
+        if countfour.count("少") == countfour.count("老"):
+            result = 720
+        return result
+
+    def guaike(self, year, month, day, hour, minute,  gua1, gua2):
+        gz = self.gangzhi(year, month, day, hour, minute)
+        ygz = gz[0]
+        mgz = gz[1]
+        dgz = gz[2]
+        hgz = gz[3]
+        gua_code = dict(zip(list(range(0,11)),list("艮艮兌坎離震巽巽坤乾")))
+        two_gua = self.upper_lowergua_code(gua1, gua2)
+        fgz = self.four_gz_code( ygz, mgz,dgz, hgz)
+        laoshao = self.count_yy( ygz, mgz, dgz,hgz)
+        minus_year = self.multi_key_dict_get({tuple(list("甲乙戊己")):11, tuple(list("丙丁")):3, tuple(list("庚辛")): 4 , tuple(list("壬癸")): 9}, ygz[0])
+        result = two_gua + fgz + laoshao - minus_year
+        return [result, "".join([gua_code.get(int(i)) for i in list(str(result))])]
+
     def jiazi(self):
         tiangan = self.tiangan
         dizhi = self.dizhi
@@ -401,13 +437,12 @@ class Iching():
         fu_gua_wu = fu_gua.get("五行")
         fu_gua_lq = fu_gua.get("六親用神")
         shen = self.multi_key_dict_get(self.shen, d[Shiying.index("世")])
-        
         try:
             fu_num = fu_gua_lq.index(fu)
             fuyao = [str(g ==fu) for g in fu_gua_lq].index('True')
             fuyao1 = fu_gua_lq[fu_num] + fu_gua_gang[fu_num] +  fu_gua_zhi[fu_num] + fu_gua_wu[fu_num]
             fu_yao = {"伏神所在爻": lq[fuyao], "伏神六親":fu, "伏神排爻數字":fu_num, "本卦伏神所在爻":lq[fu_num]+t[fu_num]+d[fu_num]+w[fu_num], "伏神爻":fuyao1}
-            
+
         except (ValueError, IndexError ,AttributeError):
             fu_yao = ""
         
@@ -562,9 +597,9 @@ class Iching():
         twelvelucks_hour = self.find_shier_luck(gz[3][0])
         twelvelucks_hour1 = "".join([self.find_shier_luck(gz[3][0]).get(i)+"　" for i in self.dizhi])
         try:
-            father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"【父母】爻處衰絕，主隊軍師老髦也，守舊保守也。",
-                 ("長生","沐浴","冠帶","臨官","帝旺"):"【父母】爻處旺相，主隊軍師少壯也，開明進取也。",
-                 ("胎　","養　"):"【父母】爻處胎、養，主隊軍師不威重也，欠謀略。"},  twelvelucks_hour.get(b3[b2.index("父")][1]))
+            father_luck = self.multi_key_dict_get({("衰　","病　","死　","墓　","絕　"):"父母爻處衰絕，主隊軍師老髦也，守舊保守也。",
+                 ("長生","沐浴","冠帶","臨官","帝旺"):"父母爻處旺相，主隊軍師少壯也，開明進取也。",
+                 ("胎　","養　"):"父母爻處胎、養，主隊軍師不威重也，欠謀略。"},  twelvelucks_hour.get(b3[b2.index("父")][1]))
         except (ValueError,IndexError):
             father_luck = ""
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
