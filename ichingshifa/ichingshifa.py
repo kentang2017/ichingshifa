@@ -382,7 +382,10 @@ class Iching():
                 "建月":build_month, 
                 "積算":[list(i) for i in np.array_split(accumulate, 10)]}
     
-    def decode_gua(self, gua, daygangzhi):
+    def decode_gua(self, gua, daygangzhi = None):
+        if daygangzhi is None:
+            now = datetime.datetime.now()
+            daygangzhi = self.gangzhi(int(now.year), int(now.month), int(now.day), int(now.hour))[2]
         fivestars = self.data.get("五星")
         eightgua = self.data.get("數字排八卦")
         sixtyfourgua =  self.data.get("數字排六十四卦")
@@ -461,9 +464,11 @@ class Iching():
                 "納甲":ng, 
                 "建月":build_month, 
                 "積算":[list(i) for i in np.array_split(accumulate, 10)]}
-    
-    
-    def decode_two_gua(self, bengua, ggua, daygangzhi):
+
+    def decode_two_gua(self, bengua, ggua, daygangzhi = None):
+        if daygangzhi is None:
+            now = datetime.datetime.now()
+            daygangzhi = self.gangzhi(int(now.year), int(now.month), int(now.day), int(now.hour))[2]
         a = self.decode_gua(bengua, daygangzhi)
         b = self.decode_gua(ggua, daygangzhi)
         try:
