@@ -494,10 +494,14 @@ class Iching():
         cd =  ld.get("日")
         eightgua = self.data.get("八卦數值")
         lower_gua_remain = (yz_code +cm+cd+hz_code) % 8
+	
+        upper_gua_remain = (yz_code+cm+cd) % 8
+
+	
         if upper_gua_remain == 0:
+
             upper_gua_remain = int(8)
         upper_gua = eightgua.get(upper_gua_remain)
-        upper_gua_remain = (yz_code+cm+cd) % 8
         if lower_gua_remain == 0:
             lower_gua_remain = int(8)
         lower_gua = eightgua.get(lower_gua_remain)
