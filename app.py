@@ -23,6 +23,11 @@ def get_file_content_as_string(path):
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
+def get_file_content_as_string1(path):
+    url = 'https://raw.githubusercontent.com/kentang2017/kinliuren/master/' + path
+    response = urllib.request.urlopen(url)
+    return response.read().decode("utf-8")
+
 st.set_page_config(layout="wide",page_title="堅六爻")
 pan,update,booktext,oexample = st.tabs([' 排盤 ', ' 日誌 ', ' 占訣 ', ' 古占例 '])
 with st.sidebar:
@@ -38,7 +43,7 @@ with st.sidebar:
 
 with update:
     st.header('日誌')
-    st.markdown(get_file_content_as_string("update.md"))
+    st.markdown(get_file_content_as_string1("update.md"))
   
 with booktext:
     st.header('占訣')
