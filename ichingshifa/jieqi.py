@@ -8,8 +8,17 @@ Created on Tue May  9 20:32:01 2023
 import re
 from math import pi
 from ephem import Sun, Date, Ecliptic, Equatorial
+import eacal
+from sxtwl import fromSolar
+from datetime import datetime
 
 jieqi_name = re.findall('..', '春分清明穀雨立夏小滿芒種夏至小暑大暑立秋處暑白露秋分寒露霜降立冬小雪大雪冬至小寒大寒立春雨水驚蟄')
+jqmc = ["冬至", "小寒", "大寒", "立春", "雨水", "驚蟄", "春分", "清明", "谷雨", "立夏",
+     "小滿", "芒種", "夏至", "小暑", "大暑", "立秋", "處暑","白露", "秋分", "寒露", "霜降", 
+     "立冬", "小雪", "大雪"]
+jieqi_name = re.findall('..', '春分清明穀雨立夏小滿芒種夏至小暑大暑立秋處暑白露秋分寒露霜降立冬小雪大雪冬至小寒大寒立春雨水驚蟄')
+c_t = eacal.EACal(zh_t=True)
+
 
 def multi_key_dict_get(d, k):
     for keys, v in d.items():
@@ -90,13 +99,28 @@ def fjqs(year, month, day, hour):
         c.append([jieqi_name[n], Date("{}/{}/{} {}:{}:00.00".format(str(d[0]).zfill(4), str(d[1]).zfill(2), str(d[2]).zfill(2), str(d[3]).zfill(2) , str(d[4]).zfill(2)))])
     return c[0]
 
-def jq(year, month, day, hour):
-    ct =  Date("{}/{}/{} {}:00:00.00".format(str(year).zfill(4), str(month).zfill(2), str(day).zfill(2), str(hour).zfill(2) ))
-    p = Date(round((ct - 7 ), 3)).tuple()
-    pp = Date(round((ct - 21 ), 3)).tuple()
-    bf = fjqs(p[0], p[1], p[2], p[3])
-    bbf = fjqs(pp[0], pp[1], pp[2], pp[3])
-    if ct < bf[1]:
-        return bbf[0]
-    else:
-        return jieqi_name[jieqi_name.index(bf[0])-1]
+def find_jq(year, month, day):
+    dd = fromSolar(year, month, day) 
+    while True:
+        dd = dd.before(1)
+        if dd.hasJieQi():
+            return jqmc[dd.getJieQi()]
+            break
+
+def jq(year, month, day, hour, minute):
+    solar_termlist = dict(zip([i[0] for i in c_t.get_annual_solar_terms(year)], [i[2] for i in c_t.get_annual_solar_terms(year)]))
+    jq1 = find_jq(year, month, day)
+    jq1_datetime = solar_termlist.get(jq1)
+    jq2 = solarterm_iter(jq1)[1]
+    jq2_datetime = solar_termlist.get(jq2)
+    jq3 = solarterm_iter(jq1)[-1]
+    jq3_datetime = solar_termlist.get(jq3)
+    cdatetime = datetime(year, month, day, hour, minute, 0)
+    a = cdatetime > jq1_datetime.replace(tzinfo=None)
+    b = cdatetime > jq2_datetime.replace(tzinfo=None)
+    if a == True:
+        if b == False:
+            return jq1
+        if b == True:
+            return jq2
+    
