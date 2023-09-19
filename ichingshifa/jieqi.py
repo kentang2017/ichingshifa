@@ -36,6 +36,10 @@ def ecliptic_lon(jd_utc):
 
 def sta(jd_num):
     return int(ecliptic_lon(jd_num)*180.0/pi/15)
+     
+def solarterm_iter(jieqi):
+    new_s_list = new_list(jieqi_name, jieqi)
+    return new_s_list
 
 def iteration(jd_num):
     s1_jd=sta(jd_num)
