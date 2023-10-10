@@ -41,17 +41,11 @@ with st.sidebar:
     h = int(pp[0])
     min = int(pp[1])
     option1 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
-    option2 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
-    option3 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
-    option4 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
-    option5 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
-    option6 = st.selectbox(
-    ('老陽', '少陽', '少陰', '老陽'))
+        "上爻",
+        ('老陽', '少陽', '少陰', '老陽'),
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+    )
 
 
 with links:
