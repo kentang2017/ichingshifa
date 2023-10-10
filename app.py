@@ -40,6 +40,19 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     min = int(pp[1])
+    option1 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+    option2 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+    option3 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+    option4 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+    option5 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+    option6 = st.selectbox(
+    ('老陽', '少陽', '少陰', '老陽'))
+
 
 with links:
     st.header('日誌')
