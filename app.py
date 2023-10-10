@@ -46,7 +46,7 @@ with st.sidebar:
         label_visibility=st.session_state.visibility,
         disabled=st.session_state.disabled,
     )
-    st.write('You selected:', option1)
+    st.write('手動爻分別為︰', option1)
 
 
 with links:
