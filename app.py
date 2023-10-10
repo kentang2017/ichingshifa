@@ -40,13 +40,10 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     min = int(pp[1])
-    option1 = st.selectbox(
-        "上爻",
-        ('老陽', '少陽', '少陰', '老陽'),
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-    )
-    st.write('手動爻分別為︰', option1)
+    option = st.selectbox(
+        'How would you like to be contacted?',
+        ('Email', 'Home phone', 'Mobile phone'))
+    st.write('You selected:', option)
 
 
 with links:
