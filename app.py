@@ -40,11 +40,21 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     min = int(pp[1])
-    option = st.selectbox(
-        'How would you like to be contacted?',
-        ('Email', 'Home phone', 'Mobile phone'))
-    st.write('You selected:', option)
-
+    option_first = st.selectbox(
+        '手動起爻︰(初爻由下而上)',
+        ('老陰', '少陰', '少陽', '老陽'))
+    option_second = st.selectbox(
+        ('老陰', '少陰', '少陽', '老陽'))
+    option_third = st.selectbox(
+        ('老陰', '少陰', '少陽', '老陽'))
+    option_forth = st.selectbox(
+        ('老陰', '少陰', '少陽', '老陽'))
+    option_fifth = st.selectbox(
+        ('老陰', '少陰', '少陽', '老陽'))
+    option_sixth = st.selectbox(
+        ('老陰', '少陰', '少陽', '老陽'))
+    yaodict = {"老陰": 6, '少陽':7, "老陽": 9, '少陰':8 }
+    st.write('You selected:',  "".join([yaodict.get(i) for i in [option_sixth, option_fifth, option_forth, option_third, option_second, option_first]]))
 
 with links:
     st.header('日誌')
