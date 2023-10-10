@@ -45,23 +45,24 @@ with st.sidebar:
     option_sixth = st.selectbox(
          '上爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    option_first = st.selectbox(
+    option_fifth = st.selectbox(
         '五爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    option_second = st.selectbox(
+    option_forth = st.selectbox(
         '四爻',
         ('老陰', '少陰', '少陽', '老陽'))
     option_third = st.selectbox(
          '三爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    option_forth = st.selectbox(
+    option_second = st.selectbox(
          '二爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    option_fifth = st.selectbox(
+    option_first = st.selectbox(
          '初爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    yaodict = {"老陰": 6, '少陽':7, "老陽": 9, '少陰':8 }
-
+    yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8" }
+    combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
+    st.write(combine)
 
 with links:
     st.header('日誌')
