@@ -9,7 +9,6 @@ import re
 import math
 import ephem
 from ephem import Sun, Date, Ecliptic, Equatorial
-import config
 
 jieqi_name = re.findall('..', '春分清明穀雨立夏小滿芒種夏至小暑大暑立秋處暑白露秋分寒露霜降立冬小雪大雪冬至小寒大寒立春雨水驚蟄')
 
