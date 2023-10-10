@@ -40,7 +40,7 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     min = int(pp[1])
-    st.write("手動起爻︰(初爻由下而上)")
+    st.write("/n手動起爻︰(初爻由下而上)")
     option_sixth = st.selectbox(
          '上爻',
         ('老陰', '少陰', '少陽', '老陽'))
