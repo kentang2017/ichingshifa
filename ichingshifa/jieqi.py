@@ -79,7 +79,7 @@ def jq(year, month, day, hour, minute):#从当前时间开始连续输出未来n
     if current < j[1] and current < j[2]:
         return list(result[0].values())[0]
     
-def gong_wangzhuai():
+def gong_wangzhuai(jq):
     wangzhuai = list("旺相胎沒死囚休廢")
     wangzhuai_num = [3,4,9,2,7,6,1,8]
     wangzhuai_jieqi = {('春分','清明','穀雨'):'春分',
@@ -90,6 +90,6 @@ def gong_wangzhuai():
                         ('立冬','小雪','大雪'):'立冬',
                         ('冬至','小寒','大寒'):'冬至',
                         ('立春','雨水','驚蟄'):'立春'}
-    return dict(zip(new_list(wangzhuai_num, dict(zip(jieqi_name[0::3],wangzhuai_num )).get(multi_key_dict_get(wangzhuai_jieqi, "霜降"))), wangzhuai))
+    return dict(zip(new_list(wangzhuai_num, dict(zip(jieqi_name[0::3],wangzhuai_num )).get(multi_key_dict_get(wangzhuai_jieqi, jq))), wangzhuai))
 
 
