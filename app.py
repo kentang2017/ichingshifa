@@ -40,7 +40,8 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     min = int(pp[1])
-    st.write("/n手動起爻︰(初爻由下而上)")
+    st.write("")
+    st.write("手動起爻︰(初爻由下而上)")
     option_sixth = st.selectbox(
          '上爻',
         ('老陰', '少陰', '少陽', '老陽'))
@@ -59,9 +60,8 @@ with st.sidebar:
     option_fifth = st.selectbox(
          '初爻',
         ('老陰', '少陰', '少陽', '老陽'))
-    
     yaodict = {"老陰": 6, '少陽':7, "老陽": 9, '少陰':8 }
-    st.write('You selected:',  "".join([yaodict.get(i) for i in [option_sixth, option_fifth, option_forth, option_third, option_second, option_first]]))
+
 
 with links:
     st.header('日誌')
