@@ -80,7 +80,14 @@ with oexample:
 with pan:
     st.header('堅六爻')
     pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
+    pan2 = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
     output2 = st.empty()
     with st_capture(output2.code):
-        print(pan)
+        try:
+            if manual:
+                print(pan2)
+            else:
+                print(pan)
+        except ValueError:
+            print(pan)
 
