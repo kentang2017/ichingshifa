@@ -80,14 +80,14 @@ with oexample:
 with pan:
     st.header('堅六爻')
     pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
-    pan2 = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
+    pan_m = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
     output2 = st.empty()
     with st_capture(output2.code):
         if not manual:
             print(pan)
         if manual:
             try:
-                print(pan2)
+                print(pan_m)
             except (ValueError, UnboundLocalError):
                 print(pan)
 
