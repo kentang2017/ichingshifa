@@ -85,7 +85,7 @@ with pan:
     with st_capture(output2.code):
         if not manual:
             print(pan)
-        if manual
+        if manual:
             print(pan2)
         except (ValueError, UnboundLocalError):
             print(pan)
