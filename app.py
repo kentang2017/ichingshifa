@@ -62,7 +62,8 @@ with st.sidebar:
         ('老陰', '少陰', '少陽', '老陽'))
     yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8" }
     combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
-    st.write(combine)
+    manual = st.button('手動盤')
+    #st.write(combine)
 
 with links:
     st.header('日誌')
