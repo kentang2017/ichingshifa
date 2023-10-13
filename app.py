@@ -83,12 +83,12 @@ with pan:
     pan2 = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
     output2 = st.empty()
     with st_capture(output2.code):
-        try:
-            if not manual:
-                print(pan)
-            if manual:
-                print(pan2)
-        except (ValueError, UnboundLocalError):
+        if not manual:
             print(pan)
+        if manual:
+            try:
+                print(pan2)
+            except (ValueError, UnboundLocalError):
+                print(pan)
 
 
