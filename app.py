@@ -66,9 +66,13 @@ with st.sidebar:
     #st.write(combine)
 
 with links:
-    st.header('日誌')
+    st.header('連接')
     st.markdown(get_file_content_as_string1("update.md"))
-  
+
+with update:
+    st.header('日誌')
+    st.markdown(get_file_content_as_string("update.md"))
+
 with booktext:
     st.header('占訣')
     st.markdown(get_file_content_as_string("text.md"))
