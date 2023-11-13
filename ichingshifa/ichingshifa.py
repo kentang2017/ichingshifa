@@ -532,7 +532,6 @@ class Iching():
         bengua = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦")
         ggua = self.qigua_manual(year, month, day, hour, minute, mgua).get("之卦")
         gb = ogua.replace("9","8").replace("6","7")
-        wugua = gb[1:4]+gb[2:5]
         b1 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get("星宿")
         b2 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get('六親用神')
         b3 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get('納甲')
@@ -555,7 +554,6 @@ class Iching():
         #guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
-	wgb = [guayaodict.get(i) for i in list(wugua)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         #gg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         smons = self.find_six_mons(gz[2][0])
@@ -631,13 +629,14 @@ class Iching():
         c5_1 = "時支運︰"+ twelvelucks_hour1+"\n\n"
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　    之卦\n"
-        f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"), bg[5],by[5],wgb[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
-        g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"), bg[4],by[4],wgb[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
-        h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"), bg[3],by[3],wgb[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
-        i = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],twelvelucks_hour.get(b3[2][1]),b5[2].replace("三","　"), bg[2],by[2],wgb[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
-        j = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],twelvelucks_hour.get(b3[1][1]),b5[1].replace("二","　"), bg[1],by[1],wgb[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
-        k = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],twelvelucks_hour.get(b3[0][1]),b5[0].replace("初","　"), bg[0],by[0],wgb[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
+        f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"),bg[5],by[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
+        g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"),bg[4],by[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
+        h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"),bg[3],by[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
+        i = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],twelvelucks_hour.get(b3[2][1]),b5[2].replace("三","　"),bg[2],by[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
+        j = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],twelvelucks_hour.get(b3[1][1]),b5[1].replace("二","　"),bg[1],by[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
+        k = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],twelvelucks_hour.get(b3[0][1]),b5[0].replace("初","　"),bg[0],by[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
         l = "【大衍筮法】\n"
+        
         try:
             m = "求得【{}之{}】，{}{}{}\n\n".format(oo[1], oo[2], oo[4][0], oo[4][2], oo[4][3])
         except IndexError:
@@ -757,7 +756,6 @@ class Iching():
         bengua = self.qigua_time(year, month, day, hour, minute).get("本卦")
         ggua = self.qigua_time(year, month, day, hour, minute).get("之卦")
         gb = ogua.replace("9","8").replace("6","7")
-        wugua = gb[1:4]+gb[2:5]
         b1 = self.qigua_time(year, month, day, hour, minute).get("本卦").get("星宿")
         b2 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('六親用神')
         b3 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('納甲')
@@ -780,7 +778,6 @@ class Iching():
         #guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
-        wgb = [guayaodict.get(i) for i in list(wugua)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         #gg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         smons = self.find_six_mons(gz[2][0])
@@ -856,12 +853,12 @@ class Iching():
         c5_1 = "時支運︰"+ twelvelucks_hour1+"\n\n"
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
         e = "六神　　   伏神　　       本卦　　　　　　　　　　　           伏神　　  　    之卦\n"
-        f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"), bg[5],by[5],wgb[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
-        g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"), bg[4],by[4],wgb[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
-        h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"), bg[3],by[3],wgb[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
-        i = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],twelvelucks_hour.get(b3[2][1]),b5[2].replace("三","　"), bg[2],by[2],wgb[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
-        j = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],twelvelucks_hour.get(b3[1][1]),b5[1].replace("二","　"), bg[1],by[1],wgb[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
-        k = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],twelvelucks_hour.get(b3[0][1]),b5[0].replace("初","　"), bg[0],by[0],wgb[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
+        f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"),bg[5],by[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
+        g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"),bg[4],by[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
+        h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"),bg[3],by[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
+        i = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[2],fufu[2],b1[2],b2[2],b3[2],b4[2],twelvelucks_hour.get(b3[2][1]),b5[2].replace("三","　"),bg[2],by[2],fufu2[2],g1[2],g2[2],g3[2],g4[2],g5[2].replace("三","　"),gb1[2])
+        j = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n".format(smons[1],fufu[1],b1[1],b2[1],b3[1],b4[1],twelvelucks_hour.get(b3[1][1]),b5[1].replace("二","　"),bg[1],by[1],fufu2[1],g1[1],g2[1],g3[1],g4[1],g5[1].replace("二","　"),gb1[1])
+        k = "　{} 　　{}　　 {} {}{}{} {} {}{} {}            {}　　 {} {}{}{} {}{}  \n\n\n".format(smons[0],fufu[0],b1[0],b2[0],b3[0],b4[0],twelvelucks_hour.get(b3[0][1]),b5[0].replace("初","　"),bg[0],by[0],fufu2[0],g1[0],g2[0],g3[0],g4[0],g5[0].replace("初","　"),gb1[0])
         l = "【大衍筮法】\n"
         
         try:
