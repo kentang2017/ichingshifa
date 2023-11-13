@@ -525,7 +525,7 @@ class Iching():
         ggua = gua.replace("6","7").replace("9","8")
         return {**{'日期':gangzhi[0]+"年"+gangzhi[1]+"月"+gangzhi[2]+"日"+gangzhi[3]+"時"}, **{"大衍筮法":self.mget_bookgua_details(gua)}, **self.decode_two_gua(gua, ggua, gangzhi[2])}
    
-   def display_pan_m(self, year, month, day, hour, minute, mgua):
+    def display_pan_m(self, year, month, day, hour, minute, mgua):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_manual(year, month, day, hour, minute, mgua).get('大衍筮法')
         ogua = self.qigua_manual(year, month, day, hour, minute, mgua).get('大衍筮法')[0]
