@@ -528,7 +528,7 @@ class Iching():
         bengua = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦")
         ggua = self.qigua_manual(year, month, day, hour, minute, mgua).get("之卦")
         gb = ogua.replace("9","8").replace("6","7")
-        wugua = gb[1:4]+gb[2:5]
+        wugua = ogua.replace("9","7").replace("6","8")[1:4]+gb[2:5]
         b1 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get("星宿")
         b2 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get('六親用神')
         b3 = self.qigua_manual(year, month, day, hour, minute, mgua).get("本卦").get('納甲')
@@ -753,7 +753,7 @@ class Iching():
         bengua = self.qigua_time(year, month, day, hour, minute).get("本卦")
         ggua = self.qigua_time(year, month, day, hour, minute).get("之卦")
         gb = ogua.replace("9","8").replace("6","7")
-        wugua = gb[1:4]+gb[2:5]
+        wugua = ogua.replace("9","7").replace("6","8")[1:4]+gb[2:5]
         b1 = self.qigua_time(year, month, day, hour, minute).get("本卦").get("星宿")
         b2 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('六親用神')
         b3 = self.qigua_time(year, month, day, hour, minute).get("本卦").get('納甲')
