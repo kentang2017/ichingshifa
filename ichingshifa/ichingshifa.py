@@ -555,6 +555,7 @@ class Iching():
         #guayaodict = {"6":"▅▅　▅▅ X", "7":"▅▅▅▅▅  ", "8":"▅▅　▅▅  ", "9":"▅▅▅▅▅ O"}
         bg = [guayaodict.get(i) for i in list(ogua)]
         gb1 = [guayaodict.get(i) for i in list(gb)]
+	wgb = [guayaodict.get(i) for i in list(wugua)]
         bg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         #gg_yaolist = ["".join([b2[i],b3[i],b4[i],b5[i]]) for i in range(0,6)]
         smons = self.find_six_mons(gz[2][0])
