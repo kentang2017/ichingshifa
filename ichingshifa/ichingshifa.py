@@ -320,7 +320,7 @@ class Iching():
     #現在時間起卦
     def current_bookgua(self):
         now = datetime.datetime.now()
-        return self.datetime_bookgua(int(now.year), int(now.month), int(now.day), int(now.hour))
+        return self.datetime_bookgua(int(now.year), int(now.month), int(now.day), int(now.hour), int(now.minute))
     
     def dc_gua(self, gua):
         fivestars = self.data.get("五星")
