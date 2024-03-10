@@ -29,7 +29,8 @@ def get_file_content_as_string1(path):
     return response.read().decode("utf-8")
 
 st.set_page_config(layout="wide",page_title="堅六爻-周易排盤")
-pan,booktext,oexample,update,links = st.tabs([' 排盤 ',  ' 占訣 ', ' 古占例 ', '日誌', ' 連結 '])
+pan,booktext,oexample,update,links = st.tabs([' 🧮排盤 ',  ' 🚀占訣 ', ' 📜古占例 ', '🆕日誌', ' 🔗連結 '])
+
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
     pp_time=st.time_input("時間",pdlm.now(tz='Asia/Shanghai').time())
