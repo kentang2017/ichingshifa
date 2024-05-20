@@ -7,7 +7,6 @@ from io import StringIO
 import streamlit.components.v1 as components
 from ichingshifa import ichingshifa
 
-BASE_URL_KINLIUREN = 'https://raw.githubusercontent.com/kentang2017/kinliuren/master/'
 
 
 @contextmanager
@@ -71,7 +70,7 @@ with st.sidebar:
 
 with links:
     st.header('連接')
-    st.markdown(get_file_content_as_string1(BASE_URL_KINLIUREN, "update.md"), unsafe_allow_html=True)
+    st.markdown(get_file_content_as_string1("update.md"), unsafe_allow_html=True)
 
 with update:
     st.header('日誌')
