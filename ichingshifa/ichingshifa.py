@@ -626,7 +626,7 @@ class Iching():
         c5 = "日支運︰"+ twelvelucks+"\n"
         c5_1 = "時支運︰"+ twelvelucks_hour1+"\n\n"
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
-        e = "六神　    伏神　　       本卦　　　　　　　　　　　               　　  　   之卦\n"
+        e = "六神　 伏神　　       本卦　　　　　　　　　　　                     伏神　　  　      之卦\n"
         f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"), bg[5],by[5],wgb[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
         g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"), bg[4],by[4],wgb[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
         h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"), bg[3],by[3],wgb[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
@@ -851,7 +851,7 @@ class Iching():
         c5 = "日支運︰"+ twelvelucks+"\n"
         c5_1 = "時支運︰"+ twelvelucks_hour1+"\n\n"
         d = "　　　　　　　       　 　{}卦　　　　　　　　　　 　　　　　              　  {}卦                \n".format(bengua.get("卦"), ggua.get("卦"))
-        e = "六神　    伏神　　       本卦　　　　　　　　　　　               伏神　　  　    之卦\n"
+        e = "六神　 伏神　　       本卦　　　　　　　　　　　                     伏神　　  　      之卦\n"
         f = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}　\n".format(smons[5],fufu[5],b1[5],b2[5],b3[5],b4[5],twelvelucks_hour.get(b3[5][1]),b5[5].replace("六","　"), bg[5],by[5],wgb[5],fufu2[5],g1[5],g2[5],g3[5],g4[5],g5[5].replace("六","　"),gb1[5])
         g = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[4],fufu[4],b1[4],b2[4],b3[4],b4[4],twelvelucks_hour.get(b3[4][1]),b5[4].replace("五","　"), bg[4],by[4],wgb[4],fufu2[4],g1[4],g2[4],g3[4],g4[4],g5[4].replace("五","　"),gb1[4])
         h = "　{} 　　{}　　 {} {}{}{} {} {}{} {}      {}      {}　　 {} {}{}{} {}{}  \n".format(smons[3],fufu[3],b1[3],b2[3],b3[3],b4[3],twelvelucks_hour.get(b3[3][1]),b5[3].replace("四","　"), bg[3],by[3],wgb[3],fufu2[3],g1[3],g2[3],g3[3],g4[3],g5[3].replace("四","　"),gb1[3])
