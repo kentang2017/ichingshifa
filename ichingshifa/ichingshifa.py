@@ -545,7 +545,7 @@ class Iching():
         if dy_p == "上卦":
             innate_num = (dongyao * 10 * gua_sum) + (upper_g * gua_sum) + gua_sum + (upper_g + lower_g + dongyao)
         if innate_num > 10000:
-	    innate_num = (str(innate_num - 10000)).zfill(4)
+            innate_num = (str(innate_num - 10000)).zfill(4)
         num_to_wuxing = dict(zip(list(range(0,10)),list("空水火木金土水火木金土")))
         return  [list("元會運世"),  
                  [cn2an.transform(str(i), "an2cn") for i in list(str(innate_num))], 
