@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-#
 import pickle, random, datetime, os,itertools,re
-from ephem import Date
 import numpy as np
-from sxtwl import fromSolar
+from bidict import bidict
 import cn2an
 from cn2an import an2cn
+from ephem import Date
+from sxtwl import fromSolar
 from ichingshifa.jieqi import *
 
 
