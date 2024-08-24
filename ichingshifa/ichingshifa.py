@@ -481,7 +481,6 @@ class Iching():
                 fei = ""
         except (ValueError, IndexError ,AttributeError):
             fei = ""
-        
         return {"本卦":a, "之卦":b, "飛神":fei}
 
     def qigua_time(self, y, m, d, h, minute):
@@ -520,7 +519,34 @@ class Iching():
         gangzhi = self.gangzhi(y,m,d,h, minute)
         ggua = gua.replace("6","7").replace("9","8")
         return {**{'日期':gangzhi[0]+"年"+gangzhi[1]+"月"+gangzhi[2]+"日"+gangzhi[3]+"時"}, **{"大衍筮法":self.mget_bookgua_details(gua)}, **self.decode_two_gua(gua, ggua, gangzhi[2])}
-   
+
+#先天策軌數
+    def innate_cegui(self, year, month, day, hour, minute):
+        innate_gua = list("乾兌離震巽坎艮坤")
+        innate_kinkun_num = {tuple([7,9]):216,tuple([6,8]):180}
+        dongyao_position = {tuple([0,1,2]):"下卦",tuple([3,4,5]):"上卦"}
+        gua = self.qigua_time(year, month, day, hour, minute).get("大衍筮法")[0]
+        gua1 = list(str(gua.replace("9","7").replace("6","8")))
+        gua_sum = sum([{"7":36, "8":24}.get(i) for i in gua1])
+        gua2 = list(gua)
+        lower = "".join(gua1[0:3])
+        upper = "".join(gua1[3:6])
+        lower_g = bidict(self.eightgua).inverse[lower]
+        upper_g = bidict(self.eightgua).inverse[upper]
+        try:
+            dy = gua2.index("6")
+        except ValueError:
+            dy = gua2.index("9")
+        dongyao = {0:1,1:2,2:3,3:4,4:5,5:6}.get(dy)    
+        dy_p = multi_key_dict_get(dongyao_position, dy)
+        if dy_p == "下卦":
+            innate_num = (lower_g * 10 * gua_sum) + (dongyao * gua_sum) + gua_sum + (upper_g + lower_g + dongyao)
+        if dy_p == "上卦":
+            innate_num = (dongyao * 10 * gua_sum) + (upper_g * gua_sum) + gua_sum + (upper_g + lower_g + dongyao)
+        num_to_wuxing =dict(zip(list(range(0,10)),list("空水火木金土水火木金土")))
+        return  [list("元會運世")[i]+ [num_to_wuxing.get(int(i)) for i in list(str(innate_num))][i] for i in range(0,4)]
+
+	
     def display_pan_m(self, year, month, day, hour, minute, mgua):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_manual(year, month, day, hour, minute, mgua).get('大衍筮法')
