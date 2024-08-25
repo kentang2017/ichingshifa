@@ -779,7 +779,7 @@ class Iching():
         p = "\n\n【先天周易策軌】\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        return a+b+c0+c+c1+c2+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o+p+q
+        return a+b+c0+c+c1+c2+p+q+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
@@ -1004,7 +1004,7 @@ class Iching():
         p = "\n\n【先天周易策軌】\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        return a+b+c0+c+c1+c2+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o+p+q
+        return a+b+c0+c+c1+c2+p+q+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
 
     
 if __name__ == '__main__':
