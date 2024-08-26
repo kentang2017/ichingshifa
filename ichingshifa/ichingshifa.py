@@ -507,7 +507,9 @@ class Iching():
         if bian_yao == 0:
             bian_yao = int(6)
         elif bian_yao != 0:
-            combine_gua[bian_yao -1] = combine_gua[bian_yao-1].replace("7","9").replace("8","6")
+            b = combine_gua[bian_yao-1].replace("7","9").replace("8","6")
+        b = combine_gua[bian_yao-1].replace("7","9").replace("8","6")
+        combine_gua[bian_yao-1] = b
         bian_gua = "".join(combine_gua)
         ggua = bian_gua.replace("6","7").replace("9","8")
         return {**{'日期':gangzhi[0]+"年"+gangzhi[1]+"月"+gangzhi[2]+"日"+gangzhi[3]+"時"}, **{"大衍筮法":self.mget_bookgua_details(bian_gua)}, **self.decode_two_gua(bian_gua, ggua, gangzhi[2])}
