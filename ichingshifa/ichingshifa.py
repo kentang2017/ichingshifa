@@ -811,7 +811,10 @@ class Iching():
         p = "\n\n【周易策軌】\n\n先天數\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        return a+b+c0+c+c1+c2+p+q+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
+	r = "\n\n 後天數\"
+	hcg = self.acquired_cegui(year, month, day, hour, minute)
+        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+        return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
@@ -1036,7 +1039,10 @@ class Iching():
         p = "\n\n【周易策軌】\n\n先天數\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        return a+b+c0+c+c1+c2+p+q+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
+	r = "\n\n 後天數\"
+	hcg = self.acquired_cegui(year, month, day, hour, minute)
+        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+        return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
 
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,30,8,30))
