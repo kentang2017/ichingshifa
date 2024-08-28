@@ -554,6 +554,37 @@ class Iching():
                  [dict(zip(range(0,10), innate_gua)).get(int(i)) for i in list(str(innate_num))],
                  [num_to_wuxing.get(int(i)) for i in list(str(innate_num))]]
 
+#後天策軌數
+    def acquired_cegui(self, year, month, day, hour, minute):
+        acquired_gua = list("ｏ坎坤震巽乾兌艮離")
+        innate_kinkun_num = {tuple([7,9]):768,tuple([6,8]):672}
+        dongyao_position = {tuple([0,1,2]):"下卦",tuple([3,4,5]):"上卦"}
+        gua = self.qigua_time(year, month, day, hour, minute).get("大衍筮法")[0]
+        gua1 = list(str(gua.replace("9","7").replace("6","8")))
+        gua_sum = sum([{"7":128, "8":112}.get(i) for i in gua1])
+        gua2 = list(gua)
+        lower = "".join(gua1[0:3])
+        upper = "".join(gua1[3:6])
+        lower_g = bidict(self.eightgua).inverse[lower]
+        upper_g = bidict(self.eightgua).inverse[upper]
+        try:
+            dy = gua2.index("6")
+        except ValueError:
+            dy = gua2.index("9")
+        dongyao = {0:1,1:2,2:3,3:4,4:5,5:6}.get(dy)    
+        dy_p = multi_key_dict_get(dongyao_position, dy)
+        if dy_p == "下卦":
+            innate_num = (lower_g * 10 * gua_sum) + (dongyao * gua_sum) + gua_sum + (upper_g + lower_g + dongyao)
+        if dy_p == "上卦":
+            innate_num = (dongyao * 10 * gua_sum) + (upper_g * gua_sum) + gua_sum + (upper_g + lower_g + dongyao)
+        if innate_num < 10000:
+            innate_num = str(innate_num).zfill(5)
+        num_to_wuxing = dict(zip(list(range(0,10)),list("空水火木金土水火木金土")))
+        return  [list("萬元會運世"),  
+                 [cn2an.transform(str(i), "an2cn") for i in list(str(innate_num))], 
+                 [dict(zip(range(0,10), acquired_gua)).get(int(i)) for i in list(str(innate_num))],
+                 [num_to_wuxing.get(int(i)) for i in list(str(innate_num))]]
+	
     def display_pan_m(self, year, month, day, hour, minute, mgua):
         gz = self.gangzhi(year, month, day, hour, minute)
         oo = self.qigua_manual(year, month, day, hour, minute, mgua).get('大衍筮法')
