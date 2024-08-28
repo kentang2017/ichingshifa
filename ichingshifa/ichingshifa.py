@@ -556,7 +556,7 @@ class Iching():
 
 #後天策軌數
     def acquired_cegui(self, year, month, day, hour, minute):
-        acquired_gua = list("ｏ坎坤震巽ｏ乾兌艮離")
+        acquired_gua = list("ｏ坎坤震巽坤乾兌艮離")
         innate_kinkun_num = {tuple([7,9]):768,tuple([6,8]):672}
         dongyao_position = {tuple([0,1,2]):"下卦",tuple([3,4,5]):"上卦"}
         gua = self.qigua_time(year, month, day, hour, minute).get("大衍筮法")[0]
