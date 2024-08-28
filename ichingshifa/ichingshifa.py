@@ -556,7 +556,7 @@ class Iching():
 
 #後天策軌數
     def acquired_cegui(self, year, month, day, hour, minute):
-        acquired_gua = list("ｏ坎坤震巽乾兌艮離")
+        acquired_gua = list("ｏ坎坤震巽ｏ乾兌艮離")
         innate_kinkun_num = {tuple([7,9]):768,tuple([6,8]):672}
         dongyao_position = {tuple([0,1,2]):"下卦",tuple([3,4,5]):"上卦"}
         gua = self.qigua_time(year, month, day, hour, minute).get("大衍筮法")[0]
@@ -808,10 +808,10 @@ class Iching():
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}。\n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist,dong_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
             if  flyfu_dist != "":
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}{}{} \n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist,father_lay_dist, dong_dist,gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
-        p = "\n\n【周易策軌】\n\n先天數\n"
+        p = "\n\n【周易策軌】\n\n先天策數\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        r = "\n\n 後天數\n"
+        r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
         s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
         return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
@@ -1036,10 +1036,10 @@ class Iching():
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}。\n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3, dd_dist,dong_dist, gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
             if  flyfu_dist != "":
                 o = "【斷主客勝負】\n1.客隊下卦為【{}】，主隊上卦為【{}】，主客關係為【{}】。內卦為我寨，處{}，外卦為彼營，處{}。{}\n2.主隊世爻，{}世爻為【{}】{}{}{}，{}；{}客隊應爻為【{}】{}{}{}，{}主客關係為【{}】，{}。 \n3.{}變為【{}】，主客關係為【{}】。 \n4.動爻【{}】，主隊世爻【{}】，關係為【{}】。 \n5.動爻【{}】，客隊應爻【{}】，關係為【{}】。\n6.{}{}{} \n7.{} \n8.日干下主隊世爻臨【{}】，客隊應爻臨【{}】，時干下{}{}".format(downgua,upgua, down_vs_up,downgua1,upgua1,father_luck,shi_yy,shi[0:4],sk_dist,sguan,s_dist2,s_dist3,shi_monster,ying[0:4],yk_dist,yguan,y_dist2,ying_monster,shi_vs_ying,shi_vs_ying2,dong2, bian, vs, dong[:-1],shi[0:4], vs2, dong[:-1],ying[0:4], vs3,dd_dist,flyfu_dist,father_lay_dist, dong_dist,gettwelve.get(shi[2]), gettwelve.get(ying[2]), s_vs_y_dist, gua_no_yao)
-        p = "\n\n【周易策軌】\n\n先天數\n"
+        p = "\n\n【周易策軌】\n\n先天策數\n"
         cg = self.innate_cegui(year, month, day, hour, minute)
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
-        r = "\n\n 後天數\n"
+        r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
         s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
         return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
