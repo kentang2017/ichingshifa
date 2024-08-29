@@ -7,7 +7,7 @@ from cn2an import an2cn
 from ephem import Date
 from sxtwl import fromSolar
 from ichingshifa.jieqi import *
-
+from ichingshifa.d import *
 
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
@@ -580,11 +580,15 @@ class Iching():
         if innate_num < 10000:
             innate_num = str(innate_num).zfill(5)
         num_to_wuxing = dict(zip(list(range(0,10)),list("空水火木金土水火木金土")))
-        ac_num = [cn2an.transform(str(i), "an2cn") for i in list(str(innate_num))]
+        #ac_num = [cn2an.transform(str(i), "an2cn") for i in list(str(innate_num))]
         return  [list("萬元會運世"),  
                  [cn2an.transform(str(i), "an2cn") for i in list(str(innate_num))], 
                  [dict(zip(range(0,10), acquired_gua)).get(int(i)) for i in list(str(innate_num))],
-                 [num_to_wuxing.get(int(i)) for i in list(str(innate_num))]], acquire_num_dict.get("".join(ac_num))
+                 [num_to_wuxing.get(int(i)) for i in list(str(innate_num))]]
+	    
+    def get_acquired_code(self, year, month, day, hour, minute):
+        ac = self.acquired_cegui(year, month, day, hour, minute)[1]
+        return acquire_num_dict.get("".join(ac))
 	
     def display_pan_m(self, year, month, day, hour, minute, mgua):
         gz = self.gangzhi(year, month, day, hour, minute)
@@ -814,8 +818,9 @@ class Iching():
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
         r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
-        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
-        return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
+        s = "{}\n{}\n{}\n{}\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+	t = "{}\n\n".format(self.get_acquired_code(year, month, day, hour, minute))
+        return a+b+c0+c+c1+c2+p+q+r+s+t+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     
     def display_pan(self, year, month, day, hour, minute):
         gz = self.gangzhi(year, month, day, hour, minute)
@@ -1042,8 +1047,9 @@ class Iching():
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
         r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
-        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
-        return a+b+c0+c+c1+c2+p+q+r+s+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
+        s = "{}\n{}\n{}\n{}\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+	t = "{}\n\n".format(self.get_acquired_code(year, month, day, hour, minute))
+        return a+b+c0+c+c1+c2+p+q+r+s+t+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
 
 if __name__ == '__main__':
     print(Iching().display_pan(2023,5,30,8,30))
