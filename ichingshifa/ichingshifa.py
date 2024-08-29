@@ -818,7 +818,7 @@ class Iching():
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
         r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
-        s = "{}\n{}\n{}\n{}\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
         t = "{}\n\n".format(self.get_acquired_code(year, month, day, hour, minute))
         return a+b+c0+c+c1+c2+p+q+r+s+t+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
     
@@ -1047,7 +1047,7 @@ class Iching():
         q = "{}\n{}\n{}\n{}\n\n".format("　".join(cg[0]), "　".join(cg[1]), "　".join(cg[2]), "　".join(cg[3]))
         r = "\n後天策數\n"
         hcg = self.acquired_cegui(year, month, day, hour, minute)
-        s = "{}\n{}\n{}\n{}\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
+        s = "{}\n{}\n{}\n{}\n\n".format("　".join(hcg[0]), "　".join(hcg[1]), "　".join(hcg[2]), "　".join(hcg[3]))
         t = "{}\n\n".format(self.get_acquired_code(year, month, day, hour, minute))
         return a+b+c0+c+c1+c2+p+q+r+s+t+c3+c4+c5+c5_1+d+e+f+g+h+i+j+k+l+m+n+o
 
