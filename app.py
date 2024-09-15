@@ -55,23 +55,23 @@ with st.sidebar:
     st.write("手動起爻︰(初爻由下而上)")
     option_sixth = st.selectbox(
          '上爻',
-        ('老陰', '少陰', '少陽', '老陽'))
+        ('','老陰', '少陰', '少陽', '老陽'))
     option_fifth = st.selectbox(
         '五爻',
-        ('老陰', '少陰', '少陽', '老陽'))
+        ('','老陰', '少陰', '少陽', '老陽'))
     option_forth = st.selectbox(
         '四爻',
-        ('老陰', '少陰', '少陽', '老陽'))
+        ('','老陰', '少陰', '少陽', '老陽'))
     option_third = st.selectbox(
          '三爻',
-        ('老陰', '少陰', '少陽', '老陽'))
+        ('','老陰', '少陰', '少陽', '老陽'))
     option_second = st.selectbox(
          '二爻',
-        ('老陰', '少陰', '少陽', '老陽'))
+        ('','老陰', '少陰', '少陽', '老陽'))
     option_first = st.selectbox(
          '初爻',
-        ('老陰', '少陰', '少陽', '老陽'))
-    yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8" }
+        ('','老陰', '少陰', '少陽', '老陽'))
+    yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8",'':'0' }
     combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
     manual = st.button('手動盤')
     #st.write(combine)
