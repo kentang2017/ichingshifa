@@ -35,7 +35,7 @@ pan,booktext,oexample,update,links = st.tabs([' 🧮排盤 ',  ' 🚀占訣 ', '
 
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
-    pp_time=st.time_input("時間",pdlm.now(tz='Asia/Shanghai').time())
+   
 
     # 設置時間初始值
     if 'pp_time' not in st.session_state:
