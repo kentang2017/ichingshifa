@@ -490,7 +490,7 @@ class Iching():
         zhi_code = dict(zip(self.dizhi, range(1,13)))
         yz_code = zhi_code.get(gangzhi[0][1])
         hz_code = zhi_code.get(gangzhi[3][1])
-	min_code = zhi_code.get(gangzhi[4][1])
+        min_code = zhi_code.get(gangzhi[4][1])
         cm = ld.get("月")
         cd =  ld.get("日")
         eightgua = self.data.get("八卦數值")
