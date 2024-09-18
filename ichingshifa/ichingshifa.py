@@ -7,8 +7,8 @@ import cn2an
 from cn2an import an2cn
 from ephem import Date
 from sxtwl import fromSolar
-from jieqi import *
-from d import *
+from ichingshifa.jieqi import *
+from ichingshifa.d import *
 
 wuxing = "火水金火木金水土土木,水火火金金木土水木土,火火金金木木土土水水,火木水金木水土火金土,木火金水水木火土土金"
 wuxing_relation_2 = dict(zip(list(map(lambda x: tuple(re.findall("..",x)), wuxing.split(","))), "尅我,我尅,比和,生我,我生".split(",")))
