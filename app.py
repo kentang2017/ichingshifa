@@ -73,7 +73,7 @@ with st.sidebar:
     combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
     manual = st.button('手動盤')
     if manual:
-        pan_m = ichingshifa.Iching().display_pan_m(combine)
+        pan_m = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
         output3 = st.empty()
         with st_capture(output3.code):
             try:
