@@ -33,13 +33,12 @@ pan,booktext,oexample,update,links = st.tabs([' 🧮排盤 ',  ' 🚀占訣 ', '
 
 with st.sidebar:
     pp_date=st.date_input("日期",pdlm.now(tz='Asia/Shanghai').date())
-   
-
+    
     # 設置時間初始值
     if 'pp_time' not in st.session_state:
         st.session_state.pp_time = pdlm.now(tz='Asia/Shanghai').time()
 
-# 使用儲存的時間初始值
+    # 使用儲存的時間初始值
     pp_time = st.time_input("時間", value=st.session_state.pp_time)
     st.session_state.pp_time = pp_time
     p = str(pp_date).split("-")
@@ -72,15 +71,6 @@ with st.sidebar:
     yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8" }
     combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
     manual = st.button('手動盤')
-    if manual:
-        pan_m = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine)
-        output3 = st.empty()
-        with st_capture(output3.code):
-            try:
-                print(pan_m)
-            except (ValueError, UnboundLocalError):
-                print("")
-    #st.write(combine)
 
 with links:
     st.header('連接')
@@ -100,17 +90,16 @@ with oexample:
 
 with pan:
     st.header('堅六爻')
-    pan = ichingshifa.Iching().display_pan(y,m,d,h,min)
-    combine1 = ichingshifa.Iching().qigua_time(y,m,d,h,min).get("大衍筮法")[0]
-    pan_m = ichingshifa.Iching().display_pan_m(y,m,d,h,min,combine1)
     output2 = st.empty()
     with st_capture(output2.code):
         if not manual:
+            # Automatic mode
+            pan = ichingshifa.Iching().display_pan(y, m, d, h, min)
             print(pan)
         if manual:
+            # Manual mode: use the 'combine' from sidebar selectboxes
             try:
+                pan_m = ichingshifa.Iching().display_pan_m(y, m, d, h, min, combine)
                 print(pan_m)
             except (ValueError, UnboundLocalError):
-                print(pan)
-
-
+                print("")  # Or handle error as needed, e.g., fallback to automatic
