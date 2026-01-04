@@ -76,13 +76,10 @@ with st.sidebar:
         pan_m = ichingshifa.Iching().display_pan_m(combine)
         output3 = st.empty()
         with st_capture(output3.code):
-            if not manual:
-                print(pan)
-            if manual:
-                try:
-                    print(pan_m)
-                except (ValueError, UnboundLocalError):
-                    print(pan)
+            try:
+                print(pan_m)
+            except (ValueError, UnboundLocalError):
+                print("")
     #st.write(combine)
 
 with links:
