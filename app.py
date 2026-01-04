@@ -7,8 +7,6 @@ from io import StringIO
 import streamlit.components.v1 as components
 from ichingshifa import ichingshifa
 
-
-
 @contextmanager
 def st_capture(output_func):
     with StringIO() as stdout, redirect_stdout(stdout):
@@ -74,6 +72,17 @@ with st.sidebar:
     yaodict = {"老陰": "6", '少陽':"7", "老陽": "9", '少陰':"8" }
     combine = "".join([yaodict.get(i) for i in [option_first, option_second,option_third,option_forth,option_fifth,option_sixth]])
     manual = st.button('手動盤')
+    if manual:
+        pan_m = ichingshifa.Iching().display_pan_m(combine)
+        output3 = st.empty()
+        with st_capture(output3.code):
+            if not manual:
+                print(pan)
+            if manual:
+                try:
+                    print(pan_m)
+                except (ValueError, UnboundLocalError):
+                    print(pan)
     #st.write(combine)
 
 with links:
