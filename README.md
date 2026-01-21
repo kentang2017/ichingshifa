@@ -134,3 +134,7 @@ A streamlit application Kinliuyao (堅六爻) is launched.
 
 A mobile app of Ichingshifa written in Kivy
 https://github.com/kentang2017/iching_shifa/blob/master/kinshifa-0.2-release.apk
+
+## **7. 交流群**
+![c211ad9ab261f0b782697fe469009ee](https://github.com/user-attachments/assets/60ebba39-54d8-4a28-86ce-38084365494d)
+
