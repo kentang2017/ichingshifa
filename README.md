@@ -183,12 +183,12 @@ ichingshifa/
 └── requirements.txt
 ```
 
-如需在本地運行（不通過 pip 安裝），請先將 `src/` 加入 Python 路徑：
+如需在本地運行（不通過 pip 安裝），請在項目根目錄下將 `src/` 加入 Python 路徑：
 
-To run locally (without pip install), add `src/` to the Python path first:
+To run locally (without pip install), run the following from the project root directory:
 
 ```bash
-export PYTHONPATH=src:$PYTHONPATH
+export PYTHONPATH=$(pwd)/src:$PYTHONPATH
 ```
 
 ---
