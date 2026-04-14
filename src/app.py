@@ -1,6 +1,12 @@
 import os
+import sys
 import json
 import urllib.request
+
+# Ensure the src directory is on the Python path so that the ichingshifa
+# package can be imported when the app is launched from the project root
+# (e.g. ``streamlit run src/app.py``).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import streamlit as st
 import pendulum as pdlm
@@ -19,7 +25,8 @@ from ichingshifa.cerebras_client import (
 # Helper utilities
 # ---------------------------------------------------------------------------
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(SRC_DIR)
 SYSTEM_PROMPTS_FILE = os.path.join(BASE_DIR, "system_prompts.json")
 DEFAULT_MAX_TOKENS = 200000
 DEFAULT_TEMPERATURE = 0.7
