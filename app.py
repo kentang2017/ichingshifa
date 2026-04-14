@@ -21,6 +21,8 @@ from ichingshifa.cerebras_client import (
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SYSTEM_PROMPTS_FILE = os.path.join(BASE_DIR, "system_prompts.json")
+DEFAULT_MAX_TOKENS = 200000
+DEFAULT_TEMPERATURE = 0.7
 
 
 @contextmanager
@@ -255,8 +257,8 @@ with st.sidebar:
         st.session_state.ai_max_tokens = st.slider(
             "最大生成 Tokens",
             40000,
-            200000,
-            st.session_state.get("ai_max_tokens", 200000),
+            DEFAULT_MAX_TOKENS,
+            st.session_state.get("ai_max_tokens", DEFAULT_MAX_TOKENS),
             key="ai_max_tokens_slider",
             help="控制AI回應的最大長度",
         )
@@ -264,7 +266,7 @@ with st.sidebar:
             "溫度 (專注 vs. 創意)",
             0.0,
             1.5,
-            st.session_state.get("ai_temperature", 0.7),
+            st.session_state.get("ai_temperature", DEFAULT_TEMPERATURE),
             step=0.05,
             key="ai_temperature_slider",
             help="較低值 (如 0.2) 更確定性；較高值 (如 0.8) 更隨機",
@@ -328,8 +330,8 @@ with tab_pan:
             try:
                 pan_text = ichingshifa.Iching().display_pan_m(y, m, d, h, mi, combine)
                 print(pan_text)
-            except (ValueError, UnboundLocalError):
-                print("")
+            except (ValueError, UnboundLocalError) as exc:
+                print(f"起卦錯誤：{exc}")
 
     # --- AI analysis button ---
     if st.button("🔍 使用AI分析排盤結果", key="analyze_with_ai"):
@@ -362,10 +364,10 @@ with tab_pan:
                         "messages": messages,
                         "model": selected_model,
                         "max_tokens": st.session_state.get(
-                            "ai_max_tokens", 200000
+                            "ai_max_tokens", DEFAULT_MAX_TOKENS
                         ),
                         "temperature": st.session_state.get(
-                            "ai_temperature", 0.7
+                            "ai_temperature", DEFAULT_TEMPERATURE
                         ),
                     }
                     response = client.get_chat_completion(**api_params)
