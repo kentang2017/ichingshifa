@@ -92,12 +92,48 @@ def save_system_prompts(prompts_data):
 
 
 # ---------------------------------------------------------------------------
-# Page config & tabs
+# Page config & custom CSS (from PR #18 UI optimization)
 # ---------------------------------------------------------------------------
 
-st.set_page_config(layout="wide", page_title="堅六爻-周易排盤")
+st.set_page_config(layout="wide", page_title="堅六爻-周易排盤", page_icon="☯️")
+
+st.markdown("""
+<style>
+/* Larger monospace font in code blocks for better readability */
+.stCode code, .stCode pre {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+}
+/* Sidebar section header styling */
+.sidebar-section {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FF4B4B;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+/* Mode badge */
+.mode-badge-auto {
+    background-color: #1f6aa5;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.mode-badge-manual {
+    background-color: #7a3b8c;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+</style>
+""", unsafe_allow_html=True)
+
 tab_pan, tab_booktext, tab_example, tab_update, tab_links = st.tabs(
-    [" 🧮排盤 ", " 🚀占訣 ", " 📜古占例 ", "🆕日誌", " 🔗連結 "]
+    [' 🧮排盤 ', ' 🚀占訣 ', ' 📜古占例 ', '🆕日誌', ' 🔗連結 ']
 )
 
 # ---------------------------------------------------------------------------
@@ -105,13 +141,22 @@ tab_pan, tab_booktext, tab_example, tab_update, tab_links = st.tabs(
 # ---------------------------------------------------------------------------
 
 with st.sidebar:
-    pp_date = st.date_input("日期", pdlm.now(tz="Asia/Shanghai").date())
+    st.markdown("#### 📅 起卦時間")
+    pp_date = st.date_input("日期", pdlm.now(tz='Asia/Shanghai').date())
 
-    if "pp_time" not in st.session_state:
-        st.session_state.pp_time = pdlm.now(tz="Asia/Shanghai").time()
+    if 'pp_time' not in st.session_state:
+        st.session_state.pp_time = pdlm.now(tz='Asia/Shanghai').time()
 
-    pp_time = st.time_input("時間", value=st.session_state.pp_time)
-    st.session_state.pp_time = pp_time
+    time_col, now_col = st.columns([3, 1])
+    with time_col:
+        pp_time = st.time_input("時間", value=st.session_state.pp_time)
+        st.session_state.pp_time = pp_time
+    with now_col:
+        st.markdown("<div style='margin-top:28px'></div>", unsafe_allow_html=True)
+        if st.button("現在", help="設定為當前時間"):
+            st.session_state.pp_time = pdlm.now(tz='Asia/Shanghai').time()
+            st.rerun()
+
     p = str(pp_date).split("-")
     pp = str(pp_time).split(":")
     y = int(p[0])
@@ -119,29 +164,21 @@ with st.sidebar:
     d = int(p[2])
     h = int(pp[0])
     mi = int(pp[1])
-    st.write("")
-    st.write("手動起爻︰(初爻由下而上)")
+
+    st.divider()
+    st.markdown("#### ✍️ 手動起爻")
+    st.caption("初爻由下而上")
 
     with st.form("manual_form"):
-        option_sixth = st.selectbox("上爻", ("老陰", "少陰", "少陽", "老陽"))
-        option_fifth = st.selectbox("五爻", ("老陰", "少陰", "少陽", "老陽"))
-        option_forth = st.selectbox("四爻", ("老陰", "少陰", "少陽", "老陽"))
-        option_third = st.selectbox("三爻", ("老陰", "少陰", "少陽", "老陽"))
-        option_second = st.selectbox("二爻", ("老陰", "少陰", "少陽", "老陽"))
-        option_first = st.selectbox("初爻", ("老陰", "少陰", "少陽", "老陽"))
-        yaodict = {"老陰": "6", "少陽": "7", "老陽": "9", "少陰": "8"}
-        combine = "".join(
-            yaodict.get(i)
-            for i in [
-                option_first,
-                option_second,
-                option_third,
-                option_forth,
-                option_fifth,
-                option_sixth,
-            ]
-        )
-        manual = st.form_submit_button("手動盤")
+        option_sixth = st.selectbox('上爻', ('老陰', '少陰', '少陽', '老陽'))
+        option_fifth = st.selectbox('五爻', ('老陰', '少陰', '少陽', '老陽'))
+        option_forth = st.selectbox('四爻', ('老陰', '少陰', '少陽', '老陽'))
+        option_third = st.selectbox('三爻', ('老陰', '少陰', '少陽', '老陽'))
+        option_second = st.selectbox('二爻', ('老陰', '少陰', '少陽', '老陽'))
+        option_first = st.selectbox('初爻', ('老陰', '少陰', '少陽', '老陽'))
+        yaodict = {"老陰": "6", '少陽': "7", "老陽": "9", '少陰': "8"}
+        combine = "".join([yaodict.get(i) for i in [option_first, option_second, option_third, option_forth, option_fifth, option_sixth]])
+        manual = st.form_submit_button('🔮 手動起卦', use_container_width=True)
 
     # --- AI settings ---
     st.markdown("---")
@@ -277,7 +314,7 @@ with st.sidebar:
 # ---------------------------------------------------------------------------
 
 with tab_links:
-    st.header("連接")
+    st.header('連接')
     try:
         st.markdown(
             get_remote_file(
@@ -293,7 +330,7 @@ with tab_links:
 # ---------------------------------------------------------------------------
 
 with tab_update:
-    st.header("日誌")
+    st.header('日誌')
     st.markdown(read_local_file("docs/update.md"))
 
 # ---------------------------------------------------------------------------
@@ -301,7 +338,7 @@ with tab_update:
 # ---------------------------------------------------------------------------
 
 with tab_booktext:
-    st.header("占訣")
+    st.header('占訣')
     st.markdown(read_local_file("docs/text.md"))
 
 # ---------------------------------------------------------------------------
@@ -309,7 +346,7 @@ with tab_booktext:
 # ---------------------------------------------------------------------------
 
 with tab_example:
-    st.header("古占例")
+    st.header('古占例')
     st.markdown(read_local_file("docs/example.md"))
 
 # ---------------------------------------------------------------------------
@@ -317,21 +354,30 @@ with tab_example:
 # ---------------------------------------------------------------------------
 
 with tab_pan:
-    st.header("堅六爻")
+    header_col, mode_col = st.columns([4, 1])
+    with header_col:
+        st.header('☯️ 堅六爻　周易排盤')
+    with mode_col:
+        st.markdown("<div style='margin-top:12px'></div>", unsafe_allow_html=True)
+        if manual:
+            st.markdown('<span class="mode-badge-manual">✍️ 手動盤</span>', unsafe_allow_html=True)
+        else:
+            st.markdown('<span class="mode-badge-auto">🤖 自動盤</span>', unsafe_allow_html=True)
 
     # Generate chart text
     pan_text = ""
     output2 = st.empty()
-    with st_capture(output2.code):
-        if not manual:
-            pan_text = ichingshifa.Iching().display_pan(y, m, d, h, mi)
-            print(pan_text)
-        if manual:
-            try:
-                pan_text = ichingshifa.Iching().display_pan_m(y, m, d, h, mi, combine)
+    with st.spinner("起卦中，請稍候…"):
+        with st_capture(output2.code):
+            if not manual:
+                pan_text = ichingshifa.Iching().display_pan(y, m, d, h, mi)
                 print(pan_text)
-            except (ValueError, UnboundLocalError) as exc:
-                print(f"起卦錯誤：{exc}")
+            elif manual:
+                try:
+                    pan_text = ichingshifa.Iching().display_pan_m(y, m, d, h, mi, combine)
+                    print(pan_text)
+                except (ValueError, UnboundLocalError) as exc:
+                    print(f"起卦錯誤：{exc}")
 
     # --- AI analysis button ---
     if st.button("🔍 使用AI分析排盤結果", key="analyze_with_ai"):
