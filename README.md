@@ -151,6 +151,8 @@ This forms the complete Six-Line (六爻) divination system still in use today.
 
 ## **4. 安裝套件 Installation**
 
+### 透過 PyPI 安裝 / Install via PyPI
+
 ```bash
 pip install sxtwl
 pip install --upgrade ichingshifa
@@ -158,14 +160,45 @@ pip install --upgrade ichingshifa
 
 **依賴套件 Dependencies**：`sxtwl`（農曆），`ephem`（天文曆算），`cn2an`（中文數字轉換），`bidict`，`numpy`
 
+### 本地開發 / Local Development
+
+本項目使用 `src/` 目錄佈局。克隆倉庫後，Python 文件位於 `src/` 目錄下：
+
+This project uses a `src/` directory layout. After cloning the repository, Python files are located under the `src/` directory:
+
+```
+ichingshifa/
+├── src/
+│   ├── app.py                  # Streamlit 網頁應用入口 / Streamlit web app entry
+│   └── ichingshifa/            # 核心套件 / Core package
+│       ├── __init__.py
+│       ├── ichingshifa.py
+│       ├── d.py
+│       ├── jieqi.py
+│       ├── cerebras_client.py
+│       └── data.pkl
+├── data/
+├── docs/
+├── system_prompts.json
+└── requirements.txt
+```
+
+如需在本地運行（不通過 pip 安裝），請先將 `src/` 加入 Python 路徑：
+
+To run locally (without pip install), add `src/` to the Python path first:
+
+```bash
+export PYTHONPATH=src:$PYTHONPATH
+```
+
 ---
 
 ## **5. 快速起卦 Quick Start**
 
 ```python
-from ichingshifa import ichingshifa
+from ichingshifa.ichingshifa import Iching
 
-iching = ichingshifa.Iching()
+iching = Iching()
 
 # 隨機大衍筮法起卦 / Random stalk divination
 iching.bookgua_details()
@@ -205,8 +238,8 @@ iching.qigua_now()
 ### 返回結果示例 Example Result
 
 ```python
-from ichingshifa import ichingshifa
-print(ichingshifa.Iching().qigua_now())
+from ichingshifa.ichingshifa import Iching
+print(Iching().qigua_now())
 # {
 #   '日期': '辛丑年戊戌月庚寅日甲申時',
 #   '大衍筮法': ['887888', '謙', '謙', {
@@ -233,8 +266,8 @@ print(ichingshifa.Iching().qigua_now())
 ## **7. 排盤範例 Display Example**
 
 ```python
-from ichingshifa import ichingshifa
-print(ichingshifa.Iching().display_pan(2023, 5, 27, 16, 0))
+from ichingshifa.ichingshifa import Iching
+print(Iching().display_pan(2023, 5, 27, 16, 0))
 ```
 
 ```
@@ -273,6 +306,12 @@ A Streamlit web application **堅六爻** (Kinliuyao) is available for online di
 
 🔗 [https://iching.streamlitapp.com](https://iching.streamlitapp.com)  
 （國內用戶需要翻牆訪問 / Mainland China users may require a VPN）
+
+本地運行 / Run locally:
+
+```bash
+streamlit run src/app.py
+```
 
 ### 📱 手機應用 Mobile App
 
