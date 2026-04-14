@@ -7,3 +7,4 @@ cn2an==0.5.23
 pytz==2022.4
 eacal==0.0.3
 bidict==0.23.1
+cerebras-cloud-sdk
