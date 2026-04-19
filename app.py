@@ -121,7 +121,7 @@ def save_system_prompts(prompts_data):
 # ---------------------------------------------------------------------------
 
 
-def generate_yao_svg(yao_type, y_pos, width=120, is_dong=False):
+def generate_yao_svg(yao_type, y_pos, width=120):
     """生成單個爻的 SVG 元素。
 
     yao_type: "7"=少陽, "8"=少陰, "9"=老陽(動), "6"=老陰(動)
@@ -907,7 +907,7 @@ if "pan_text" not in st.session_state:
 should_qigua = auto_qigua or manual
 
 if should_qigua:
-    if not divination_question and not divination_question.strip():
+    if not divination_question or not divination_question.strip():
         st.warning("⚠️ 請先在左側輸入您的占卜問題！")
     else:
         with st.spinner("☯ 起卦中，正在演算大衍蓍草法…"):
@@ -1219,6 +1219,7 @@ with tab3:
             st.markdown("<br/>", unsafe_allow_html=True)
             with st.expander("📖 卦辭 · 彖辭 · 象辭", expanded=True):
                 gua_ci = yao_desc.get(0, "")
+                # 彖辭前兩個字為卦名標記，故去除（如「彖曰」二字）
                 tuan_ci = yao_desc.get(7, "")[2:] if yao_desc.get(7) else ""
                 st.markdown(f"""
                 <div class="gua-card">
