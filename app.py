@@ -463,12 +463,11 @@ if user_chat_input := st.chat_input("輸入您的問題…"):
     else:
         try:
             client = CerebrasClient(api_key=cerebras_api_key)
-            messages_payload = [
-                {
-                    "role": "system",
-                    "content": st.session_state.get("system_prompt", ""),
-                }
-            ] + [
+            system_prompt_content = st.session_state.get("system_prompt", "")
+            messages_payload = []
+            if system_prompt_content:
+                messages_payload.append({"role": "system", "content": system_prompt_content})
+            messages_payload += [
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.chat_messages
             ]
@@ -481,11 +480,14 @@ if user_chat_input := st.chat_input("輸入您的問題…"):
             with st.chat_message("assistant"):
                 with st.spinner("AI 正在回應…"):
                     response = client.get_chat_completion(**api_params)
-                    assistant_reply = response.choices[0].message.content
-                    st.markdown(assistant_reply)
-            st.session_state.chat_messages.append(
-                {"role": "assistant", "content": assistant_reply}
-            )
+                    if not response.choices:
+                        st.error("AI 未返回任何回應。")
+                    else:
+                        assistant_reply = response.choices[0].message.content
+                        st.markdown(assistant_reply)
+                        st.session_state.chat_messages.append(
+                            {"role": "assistant", "content": assistant_reply}
+                        )
         except Exception as e:
             with st.chat_message("assistant"):
                 st.error(f"調用AI時發生錯誤：{e}")
