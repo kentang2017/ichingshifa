@@ -428,3 +428,66 @@ with tab_pan:
                         st.markdown(raw_response)
                 except Exception as e:
                     st.error(f"調用AI時發生錯誤：{e}")
+
+# ---------------------------------------------------------------------------
+# Fixed bottom LLM chat
+# ---------------------------------------------------------------------------
+
+st.divider()
+st.subheader("💬 AI 聊天")
+
+# Initialise chat history
+if "chat_messages" not in st.session_state:
+    st.session_state.chat_messages = []
+
+# Render existing conversation
+for msg in st.session_state.chat_messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# Chat input – Streamlit renders this fixed to the bottom of the viewport
+if user_chat_input := st.chat_input("輸入您的問題…"):
+    # Append and display the user message immediately
+    st.session_state.chat_messages.append({"role": "user", "content": user_chat_input})
+    with st.chat_message("user"):
+        st.markdown(user_chat_input)
+
+    # Call the LLM
+    cerebras_api_key = (
+        st.secrets.get("CEREBRAS_API_KEY", "")
+        or os.getenv("CEREBRAS_API_KEY", "")
+    )
+    if not cerebras_api_key:
+        with st.chat_message("assistant"):
+            st.error("CEREBRAS_API_KEY 未設置，請在 .streamlit/secrets.toml 或環境變量中設置。")
+    else:
+        try:
+            client = CerebrasClient(api_key=cerebras_api_key)
+            system_prompt_content = st.session_state.get("system_prompt", "")
+            messages_payload = []
+            if system_prompt_content:
+                messages_payload.append({"role": "system", "content": system_prompt_content})
+            messages_payload += [
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.chat_messages
+            ]
+            api_params = {
+                "messages": messages_payload,
+                "model": st.session_state.get("cerebras_model_selector", DEFAULT_MODEL),
+                "max_tokens": st.session_state.get("ai_max_tokens", DEFAULT_MAX_TOKENS),
+                "temperature": st.session_state.get("ai_temperature", DEFAULT_TEMPERATURE),
+            }
+            with st.chat_message("assistant"):
+                with st.spinner("AI 正在回應…"):
+                    response = client.get_chat_completion(**api_params)
+                    if not response.choices:
+                        st.error("AI 未返回任何回應。")
+                    else:
+                        assistant_reply = response.choices[0].message.content
+                        st.markdown(assistant_reply)
+                        st.session_state.chat_messages.append(
+                            {"role": "assistant", "content": assistant_reply}
+                        )
+        except Exception as e:
+            with st.chat_message("assistant"):
+                st.error(f"調用AI時發生錯誤：{e}")
