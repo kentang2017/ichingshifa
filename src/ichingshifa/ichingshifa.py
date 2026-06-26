@@ -498,21 +498,22 @@ class Iching():
         accumulate_code = dict(zip(self.data.get("六十四卦"),self.data.get("積算"))).get(gua_name)
         accumulate = self.new_list(self.jiazi(), accumulate_code)
         aa = list(set(lq))
-        fu =  str(str([value for value in liuqin if value not in aa]).replace("['","").replace("']",""))
+        missing_liuqin = [value for value in liuqin if value not in aa]
         fu_gua = self.dc_gua(self.multi_key_dict_get(self.bagua_pure_code, gua_name))
         fu_gua_gang = fu_gua.get("天干")
         fu_gua_zhi = fu_gua.get("地支")
         fu_gua_wu = fu_gua.get("五行")
         fu_gua_lq = fu_gua.get("六親用神")
         shen = self.multi_key_dict_get(self.shen, d[Shiying.index("世")])
-        try:
-            fu_num = fu_gua_lq.index(fu)
-            fuyao = [str(g ==fu) for g in fu_gua_lq].index('True')
+        fu_yao_list = []
+        for fu in missing_liuqin:
+            try:
+                fu_num = fu_gua_lq.index(fu)
+            except (ValueError, IndexError, AttributeError):
+                continue
             fuyao1 = fu_gua_lq[fu_num] + fu_gua_gang[fu_num] +  fu_gua_zhi[fu_num] + fu_gua_wu[fu_num]
-            fu_yao = {"伏神所在爻": lq[fuyao], "伏神六親":fu, "伏神排爻數字":fu_num, "本卦伏神所在爻":lq[fu_num]+t[fu_num]+d[fu_num]+w[fu_num], "伏神爻":fuyao1}
-
-        except (ValueError, IndexError ,AttributeError):
-            fu_yao = ""
+            fu_yao_list.append({"伏神所在爻": lq[fu_num], "伏神六親":fu, "伏神排爻數字":fu_num, "本卦伏神所在爻":lq[fu_num]+t[fu_num]+d[fu_num]+w[fu_num], "伏神爻":fuyao1})
+        fu_yao = fu_yao_list[0] if fu_yao_list else ""
         
         return {"卦":gua_name, 
                 "五星":ss, 
@@ -523,8 +524,9 @@ class Iching():
                 "五行":w, 
                 "世應爻":Shiying, 
                 "身爻":lq[shen]+t[shen]+d[shen]+w[shen],
-                "六親用神":lq, 
+                "六親用神":lq,
                 "伏神":fu_yao,
+                "伏神列表":fu_yao_list,
                 "六獸":self.find_six_mons(daygangzhi),
                 "納甲":ng, 
                 "建月":build_month, 
