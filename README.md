@@ -299,7 +299,7 @@ An Android mobile app of IchingShifa written in **Kivy**:
 歡迎關注微信公眾號，獲取更多易學資訊與更新通知。  
 Follow our WeChat Official Account for I Ching updates and insights.
 
-![WeChat QR](https://raw.githubusercontent.com/kentang2017/kinliuren/refs/heads/master/pic/%E5%9C%96%E7%89%87_20260316084147.jpg)
+![WeChat QR](https://raw.githubusercontent.com/kentang2017/kinliuren/refs/heads/master/pic/%E5%9C%96%E7%89%87_20260316084148.jpg)
 
 ---
 
