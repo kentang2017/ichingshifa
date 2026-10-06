@@ -781,7 +781,7 @@ class Iching():
         except (ValueError,IndexError):
             father_luck = ""
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
-        b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
+        b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(self.lunar_date_d(year, month, day).get("年"))+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
         j_q = jq(year, month, day, hour, minute)
         c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
@@ -1013,7 +1013,7 @@ class Iching():
         except (ValueError,IndexError):
             father_luck = ""
         a = "起卦時間︰{}年{}月{}日{}時{}分\n".format(year, month, day, hour, minute)
-        b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(year)+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
+        b = "農曆︰{}{}月{}日\n".format(cn2an.transform(str(self.lunar_date_d(year, month, day).get("年"))+"年", "an2cn"), an2cn(self.lunar_date_d(year, month, day).get("月")), an2cn(self.lunar_date_d(year,month, day).get("日")))
         c = "干支︰{}年  {}月  {}日  {}時\n".format(gz[0], gz[1], gz[2], gz[3])
         j_q = jq(year, month, day, hour, minute)
         c0 = "節氣︰{} | 旺︰{} | 相︰{}\n".format(j_q, gong_wangzhuai(j_q)[1].get("旺"), gong_wangzhuai(j_q)[1].get("相"))
