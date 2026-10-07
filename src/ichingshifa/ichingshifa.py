@@ -31,7 +31,8 @@ class Iching():
     def __init__(self):
         base = os.path.abspath(os.path.dirname(__file__))
         path = os.path.join(base, 'data.pkl')
-        self.data = pickle.load(open(path, "rb"))
+        with open(path, "rb") as f:
+            self.data = pickle.load(f)
         self.sixtyfourgua = self.data.get("數字排六十四卦")
         self.sixtyfourgua_description = self.data.get("易經卦爻詳解")
         self.eightgua = self.data.get("八卦數值")
